@@ -108,7 +108,7 @@ public class SearchResultServlet extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
 			System.out.println("connection success");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -176,7 +176,7 @@ public class SearchResultServlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
 				System.out.println("connection success");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
@@ -226,7 +226,7 @@ public class SearchResultServlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
 				System.out.println("connection success");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
@@ -273,7 +273,7 @@ public class SearchResultServlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
 				System.out.println("connection success");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
@@ -323,7 +323,7 @@ public class SearchResultServlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
 			//[[じゃいも,1,個],[にんじん,2,本][牛肉,100,g]]のような感じのArrayList recipe_bunryou1を作成する
