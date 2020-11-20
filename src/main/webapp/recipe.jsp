@@ -32,7 +32,7 @@ String tukurikata = (String)request.getAttribute("tukurikata");
 ArrayList<String[]> bunryouList =new ArrayList<>();
 bunryouList = (ArrayList<String[]>)request.getAttribute("recipe_bunryou");
 String recipeID = (String)(request.getAttribute("recipeID"));
-
+String txt = (String)request.getAttribute("txt");
 %>
 
 
@@ -41,7 +41,7 @@ String recipeID = (String)(request.getAttribute("recipeID"));
     <div class="content">
       <div class="main">
   <!--ラジオボタン開始-->
-    <form>
+    <form action="SearchResultServlet" method="get">
     <div class ="radio-font"><!--ラジオボタンのdiv４-->
       <ul class ="radiolist"><!--ラジオボタンリストのul-->
         <li>
@@ -59,13 +59,15 @@ String recipeID = (String)(request.getAttribute("recipeID"));
   <!--ラジオボタン終了-->
 
   <!--検索窓開始-->
-      <input id ="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096]*" maxlength=50 placeholder=" 例）じゃがいも　カレー等"  required>
+      <input id="mado" type="text" name="input" value="<%=txt%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 required>
       <input id ="mbutton" type="submit" value="レシピ検索" onclick="func1()">
+      <!--
         <script>
           function func1() {
               document.getElementById("mbutton").disabled = true;
           }
         </script>
+       -->
     </form>
   <!--検索窓終了-->
 

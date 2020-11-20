@@ -11,6 +11,10 @@ int recipeNum = (int)(request.getAttribute("recipeNum"));
 int pageNum = (int)(request.getAttribute("pageNum"));
 String searchMode = (String)(request.getAttribute("searchMode"));
 String[] inputData = (String[])(request.getAttribute("inputData"));
+String txt = inputData[0];
+for (int i = 1; i < inputData.length; i++){
+	txt += "　" + inputData[i];
+}
 ArrayList<Integer> recipeID = (ArrayList)(request.getAttribute("recipeID"));
 ArrayList<String> recipeTitle = (ArrayList)(request.getAttribute("recipeTitle"));
 //###################################################################################
@@ -62,14 +66,22 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
   <!--aside開始-->
       <aside>
         <h3>特に消費したい食材</h3>
-        <form><!--サイドバー側のラジオボタン-->
+        <form action="SearchResultServlet?searchMode=syokuzai" method="get"><!--サイドバー側のラジオボタン-->
           <div class="sradio-font">
             <ul>
             <%
-            for (int i = 0; i <inputData.length; i++) {
+            for (int i = 0; i < inputData.length; i++) {
+        		String newInput = inputData[i];
+        		int j;
+            	for (j = 0; j < i; j++) {
+            		newInput += "　" + inputData[j];
+            	}
+            	for (j++; j < inputData.length; j++) {
+            		newInput += "　" + inputData[j];
+            	}
             %>
              <li>
-               <input type="radio" id="option<%= i %>" name="searchMode" value="syoku<%= i %>" <% if (i == 0) out.print("checked"); %>><label for="option<%= i %>"><%= inputData[i] %></label>
+               <input type="radio" id="option<%= i %>" name="input" value="<%= newInput %>" <% if (i == 0) out.print("checked"); %>><label for="option<%= i %>"><%= inputData[i] %></label>
                <div class="scheck"></div>
              </li>
             <%
@@ -93,7 +105,7 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
          <h1>検索結果
            <span> <%= recipeNum %> 件</span>
            <div class="radio-font"><!--ラジオボタンのdiv４-->
-            <form><!--メイン要素側のラジオボタン-->
+            <form action="SearchResultServlet" method="get"><!--メイン要素側のラジオボタン-->
              <ul class="radiolist"><!--ラジオボタンリストのul-->
                  <li>
                    <input type="radio" id = "f-option" name="searchMode" value="syokuzai" checked><label for="f-option">食材名検索</label>
@@ -107,7 +119,7 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
 
            </div>
           <div class="kennsaku">
-           <input id="mado" type="text" name="input" size=50 placeholder=" 例）じゃがいも　カレー等"  required>
+           <input id="mado" type="text" name="input" value="<%=txt%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 required>
            <input id="mbutton" type="submit" value="検索">
           </div>
             </form>
@@ -127,7 +139,7 @@ if (recipeNum == 0) {
            </div>
            <div class="racipe-text">
             <h2 class="recipetitle">
-              <a class="recipititlelink" href="RecipeServlet?recipeID=<%= recipeID.get(i) %>"><%= recipeTitle.get(i) %></a></h2>
+              <a class="recipititlelink" href="RecipeServlet?recipeID=<%= recipeID.get(i) %>&txt=<%= URLEncoder.encode(txt, "UTF-8") %>"><%= recipeTitle.get(i) %></a></h2>
            <div class="material">
 <%
 out.println("材料：<br>");
@@ -176,7 +188,7 @@ for (int i = 1; i <= pageTotal; i++) {
 		if (j == 0) {
 			buf += URLEncoder.encode(inputData[j], "UTF-8");
 		} else {
-			buf += "　" + URLEncoder.encode(inputData[j], "UTF-8");
+			buf += URLEncoder.encode("　" + inputData[j], "UTF-8");
 		}
 	}
 	buf += "&pageNum=" + i + "\">" + i + "</a></li>";

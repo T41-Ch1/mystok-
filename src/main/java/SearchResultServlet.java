@@ -1,4 +1,4 @@
-package mystok;
+package pac1;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -59,11 +59,16 @@ public class SearchResultServlet extends HttpServlet {
 		} else {
 			inputData = new String[0]; //inputが0文字ならinputDataは要素数0 splitで生成すると要素数が1になる
 		}
-		searchMode = request.getParameter("searchMode");
+
+		if (Objects.equals(request.getParameter("searchMode"), null)) {
+			searchMode = "syokuzai";
+		} else {
+			searchMode = request.getParameter("searchMode");
+		}
 
 		if (inputData.length == 0) {
 			//トップページに遷移する処理 今はテストページに遷移している 後で修正
-			RequestDispatcher rd_top = request.getRequestDispatcher("test_top.html"); //ここ修正ポイント "test_top.html"を"main.jsp"に
+			RequestDispatcher rd_top = request.getRequestDispatcher("top.jsp");
 			rd_top.forward(request, response);
 			return;
 		} else if (searchMode.equals("ryouri")) {
@@ -76,7 +81,7 @@ public class SearchResultServlet extends HttpServlet {
 		} else {
 			//食材名テーブルから検索
 			int dataNum = 1;
-			sql = "select RyouriID, count(RyouriID) from BunryouTB where SyokuzaiID in (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana in ('" + inputData[0];
+			sql = "select RyouriID from BunryouTB where RyouriID in (select RyouriID from BunryouTB where SyokuzaiID in (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana in ('" + inputData[0];
 			for (int i = 1; i < inputData.length; i++) {
 				//すでに追加されたデータではないものを追加する
 				boolean dataExists = false;
@@ -90,7 +95,8 @@ public class SearchResultServlet extends HttpServlet {
 					sql += "', '" + inputData[i];
 				}
 			}
-			sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + " limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
+			sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = '" + inputData[0];
+			sql += "') order by Bunryou desc limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
 		}
 		System.out.println(sql);
 
@@ -102,7 +108,7 @@ public class SearchResultServlet extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 			System.out.println("connection success");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -149,7 +155,7 @@ public class SearchResultServlet extends HttpServlet {
 			} else {
 				//食材名テーブルから検索
 				int dataNum = 1;
-				sql = "select count(RyouriID) from RyourimeiTB where RyouriID in (select RyouriID from BunryouTB where SyokuzaiID in (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana in ('" + inputData[0];
+				sql = "select count(RyouriID) from RyourimeiTB where RyouriID in (select RyouriID from BunryouTB where RyouriID in (select RyouriID from BunryouTB where SyokuzaiID in (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana in ('" + inputData[0];
 				for (int i = 1; i < inputData.length; i++) {
 					//すでに追加されたデータではないものを追加する
 					boolean dataExists = false;
@@ -163,14 +169,14 @@ public class SearchResultServlet extends HttpServlet {
 						sql += "', '" + inputData[i];
 					}
 				}
-				sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + ")";
+				sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = '" + inputData[0] + "') order by Bunryou desc);";
 			}
 			System.out.println(sql);
 
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				System.out.println("connection success");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
@@ -210,13 +216,17 @@ public class SearchResultServlet extends HttpServlet {
 			for (int i = 1; i < recipeID.size(); i++) {
 				sql += "', '" + recipeID.get(i);
 			}
+			sql += "') order by field(RyouriID, '" + recipeID.get(0);
+			for (int i = 1; i < recipeID.size(); i++) {
+				sql += "', '" + recipeID.get(i);
+			}
 			sql += "')";
 			System.out.println(sql);
 
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				System.out.println("connection success");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
@@ -263,7 +273,7 @@ public class SearchResultServlet extends HttpServlet {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				System.out.println("connection success");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
@@ -303,13 +313,17 @@ public class SearchResultServlet extends HttpServlet {
 			for (int i = 1; i < recipeID.size(); i++) {
 				sql += "', '" + recipeID.get(i);
 			}
-			sql += "') order by BunryouTB.RyouriID, BunryouTB.SyokuzaiID;";
+			sql += "') order by field(BunryouTB.RyouriID, '" + recipeID.get(0);
+			for (int i = 1; i < recipeID.size(); i++) {
+				sql += "', '" + recipeID.get(i);
+			}
+			sql += "'), BunryouTB.SyokuzaiID;";
 			System.out.println(sql);
 
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(sql);
 			//[[じゃいも,1,個],[にんじん,2,本][牛肉,100,g]]のような感じのArrayList recipe_bunryou1を作成する

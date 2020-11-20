@@ -58,13 +58,15 @@
   <!--ラジオボタン終了-->
 
   <!--検索窓開始-->
-            <input id="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096]*" maxlength=50 placeholder=" 例）じゃがいも　カレー等"  required>
+            <input id="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 placeholder=" 例）じゃがいも　カレー等"  required>
             <input id = "mbutton" type="submit" value="レシピ検索" onclick="func1()">
+            <!--
             <script>
               function func1() {
                 document.getElementById("mbutton").disabled = true;
               }
             </script>
+              -->
           </form>
   <!--検索窓終了-->
 

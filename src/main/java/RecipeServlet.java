@@ -1,4 +1,4 @@
-package mystok;
+package pac1;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RecipeServlet extends HttpServlet {
 	//String recipeID = "1";
 	String recipeID = "";
+	String txt = "";
 	String recipe_name = "";
 	String tukurikata = "";
 	String[] str = new String[3];
@@ -39,6 +40,7 @@ public class RecipeServlet extends HttpServlet {
 		System.out.println(request.getParameter("recipeID"));
 		//あとで↓を↑に修正する
 		//recipeID = "2"; 修正した レシピページ単体でテストをする場合こっちに切り替える
+		txt = request.getParameter("txt");
 
 		//DBに接続し、recipeIDで検索して、レシピ名を取得し、変数recipe_nameに代入する
 		Connection conn = null;
@@ -52,7 +54,7 @@ public class RecipeServlet extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql1);
 
@@ -90,7 +92,7 @@ public class RecipeServlet extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql2);
 
@@ -127,7 +129,7 @@ public class RecipeServlet extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://mystok-db:3306/mystok?serverTimezone=JST","root","password");
+					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql3);
 		//[[じゃいも,1,個],[にんじん,2,本][牛肉,100,g]]のような感じのArrayList recipe_bunryou1を作成する
@@ -168,6 +170,7 @@ public class RecipeServlet extends HttpServlet {
 		//tukurikata = "さんぷる作り方";
 		//System.out.println(recipe_name);
 		//レシピページに必要なパラメータをそれぞれセットして、recipe.jspに転送する
+		request.setAttribute("txt",txt);
 		request.setAttribute("recipe_name",recipe_name);
 		request.setAttribute("tukurikata", tukurikata);
 		request.setAttribute("recipeID", recipeID);
