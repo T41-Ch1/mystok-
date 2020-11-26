@@ -29,7 +29,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Container image with current time
-        run: docker build -t ${{ secrets.DOCKER_REPO }}:${{ steps.current-time.outputs.formattedTime }} .
+        run: docker build -t ${{ secrets.DOCKER_REPO }}:${{ steps.current-time.outputs.formattedTime }} . --no-cache
 
       - name: Publish Docker image
         run: docker push ${{ secrets.DOCKER_REPO }}:${{ steps.current-time.outputs.formattedTime }}
