@@ -5,7 +5,8 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+      - develop
 
 jobs:
   build_and_test:
