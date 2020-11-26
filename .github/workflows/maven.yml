@@ -22,7 +22,7 @@ jobs:
         uses: 1466587594/get-current-time@v2
         id: current-time
         with: 
-          format: YYYYMMDD-HH:mm
+          format: YYYYMMDD-HHmm
           utcOffset: "+09:00"
 
       - name: Login to Docker Hub
