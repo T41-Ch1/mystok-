@@ -41,7 +41,7 @@ jobs:
           java-version: 1.8
       - run: mvn -B package --file pom.xml -DskipTests
       - run: mkdir stagin && cp target/*.war staging
-      - uses: actions/upload-artiface@v1
+      - uses: actions/upload-artifact@v1
         with:
           name: Package
           path: staging
