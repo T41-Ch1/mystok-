@@ -1,3 +1,4 @@
 Jenkinsfile
 .github
 .git
+*.yaml
