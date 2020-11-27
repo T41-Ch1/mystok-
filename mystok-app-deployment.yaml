@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.yml convert
+    kompose.version: 1.21.0 ()
+  labels:
+    io.kompose.service: mystok-app
+  name: mystok-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mystok-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose --file docker-compose.yml convert
+        kompose.version: 1.21.0 ()
+      labels:
+        io.kompose.service: mystok-app
+    spec:
+      containers:
+      - image: dekabitasp/github-actions-test-mystok
+        imagePullPolicy: ""
+        name: mystok-app
+        ports:
+        - containerPort: 80
+        resources: {}
+#        volumeMounts:
+#        - mountPath: /usr/local/tomcat/webapps/
+#          name: mystok-app-claim0
+#        - mountPath: /usr/local/tomcat/webapps/mystok/WEB-INF/lib
+#          name: mystok-app-claim1
+      restartPolicy: Always
+      serviceAccountName: ""
+#      volumes:
+#      - name: mystok-app-claim0
+#        persistentVolumeClaim:
+#          claimName: mystok-app-claim0
+#      - name: mystok-app-claim1
+#        persistentVolumeClaim:
+#          claimName: mystok-app-claim1

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.yml convert
+    kompose.version: 1.21.0 ()
+  labels:
+    io.kompose.service: mystok-db
+  name: mystok-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mystok-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose --file docker-compose.yml convert
+        kompose.version: 1.21.0 ()
+      labels:
+        io.kompose.service: mystok-db
+    spec:
+      containers:
+      - image: dekabitasp/mystok-db-init:v1.5
+        imagePullPolicy: ""
+        name: mystok-db
+        ports:
+        - containerPort: 3306
+        resources: {}
+#        volumeMounts:
+#        - mountPath: /var/lib/mysql-files
+#          name: mystok-db-claim0
+      restartPolicy: Always
+      serviceAccountName: ""
+#     volumes:
+#      - name: mystok-db-claim0
+#        persistentVolumeClaim:
+#          claimName: mystok-db-claim0

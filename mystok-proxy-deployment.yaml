@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: mystok-proxy
+  name: mystok-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mystok-proxy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: mystok-proxy
+    spec:
+      containers:
+      - image: dekabitasp/mystok-proxy-recipeservlet-basic-auth:v2.2
+        imagePullPolicy: ""
+        name: mystok-proxy
+        ports:
+        - containerPort: 80
+#        volumeMounts:
+#        - mountPath: /etc/nginx/conf.d/
+#          name: mystok-proxy-claim0
+      restartPolicy: Always
+#      serviceAccountName: ""
+#      volumes:
+#      - name: mystok-proxy-claim0
+#        persistentVolumeClaim:
+#          claimName: mystok-proxy-claim0
