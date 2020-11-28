@@ -44,8 +44,8 @@ jobs:
         id: get-credentials
         uses: google-github-actions/get-gke-credentials@main
         with:
-          cluster_name: my-kubernetes-test-20200822-gke
-          location: us-central1
+          cluster_name: ${{ secrets.gcp_cluster_name }}
+          location: ${{ secrets.gcp_location }}
           credentials: ${{ secrets.gcp_credentials }}
 
 # The KUBECONFIG env var is automatically exported and picked up by kubectl.
