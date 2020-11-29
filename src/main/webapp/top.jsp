@@ -24,7 +24,7 @@
             <a href="top.jsp"><img src="images/logo.PNG"alt="Logo"></a>
           </li>
           <li class ="kaiinn"><a href="consept.html">会員登録</a></li>
-          <li><a href="MENU.html">ログイン</a></li>
+          <li><a href="mypage.jsp">ログイン</a></li>
         </ul>
     </div>
     </header>

@@ -1,4 +1,4 @@
-package mystok;
+package pac1;
 
 import java.io.IOException;
 import java.io.PrintWriter;

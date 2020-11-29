@@ -1,8 +1,9 @@
-package mystok;
+package pac1;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -76,15 +77,15 @@ public class SearchResultServlet extends HttpServlet {
 			return;
 		} else if (searchMode.equals("ryouri")) {
 			//表示レシピ検索SQL(料理名検索)の組み立て
-			sql = "select RyouriID from RyouriTB where RyouriKana in ('" + inputData[0];
+			sql = "select RyouriID from RyouriTB where RyouriKana in (" + "?";
 			for (int i = 1; i < inputData.length; i++) {
-				sql += "', '" + inputData[i];
+				sql += ", " + "?";
 			}
-			sql += "') limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
+			sql += ") limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
 		} else {
 			//表示レシピ検索SQL(食材名検索)の組み立て
 			int dataNum = 1; //入力された食材の個数を格納する(重複するものを除く)
-			sql = "select RyouriID from BunryouTB where RyouriID in (select RyouriID from BunryouTB where SyokuzaiID in (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana in ('" + inputData[0];
+			sql = "select RyouriID from BunryouTB where RyouriID in (select RyouriID from BunryouTB where SyokuzaiID in (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana in (" + "?";
 			for (int i = 1; i < inputData.length; i++) {
 				//すでに追加されたデータではないものを追加する
 				boolean dataExists = false;
@@ -95,11 +96,11 @@ public class SearchResultServlet extends HttpServlet {
 				}
 				if (!dataExists) {
 					dataNum++;
-					sql += "', '" + inputData[i];
+					sql += ", " + "?";
 				}
 			}
-			sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = '" + inputData[0];
-			sql += "') order by Bunryou desc limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
+			sql += ")) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = " + "?";
+			sql += ") order by Bunryou desc limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
 		}
 		System.out.println(sql);
 
@@ -112,11 +113,35 @@ public class SearchResultServlet extends HttpServlet {
 		//表示レシピ検索SQLの実行
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)) {
-			while (rs.next()) {
-				recipeID.add(rs.getInt("RyouriID")); //条件を満たすRyouriIDを格納
+					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+				PreparedStatement prestmt = conn.prepareStatement(sql)) {
+			if (searchMode.equals("ryouri")) {
+				for (int i = 0 ; i < inputData.length;i++) {
+					prestmt.setString(i+1,inputData[i]);
+				}
+			} else {
+				int dataNum = 1; //入力された食材の個数を格納する(重複するものを除く)
+				prestmt.setString(1,inputData[0]);
+				for (int i = 1; i < inputData.length; i++) {
+					//すでに追加されたデータではないものを追加する
+					boolean dataExists = false;
+					for (int j = 0; j < i; j++) {
+						if (inputData[i].equals(inputData[j])) {
+							dataExists = true;
+						}
+					}
+					if (!dataExists) {
+						dataNum++;
+						prestmt.setString(dataNum,inputData[i]);
+					}
+				}
+				prestmt.setString(dataNum + 1,inputData[0]);
+			}
+
+			try (ResultSet rs = prestmt.executeQuery()) {
+				while (rs.next()) {
+					recipeID.add(rs.getInt("RyouriID")); //条件を満たすRyouriIDを格納
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +181,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			try (
 					Connection conn = DriverManager.getConnection(
-						"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(sql)) {
 				while (rs.next()) {
@@ -182,7 +207,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			try (
 					Connection conn = DriverManager.getConnection(
-						"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(sql)) {
 				while (rs.next()) {
@@ -210,7 +235,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			try (
 					Connection conn = DriverManager.getConnection(
-						"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
+						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(sql)) {
 				//レシピごとに必要な分量のデータが入ったArrayList<String[]> tempListを作成する
