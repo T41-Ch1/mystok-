@@ -1,3 +1,3 @@
 #!/bin/sh
-sed -i _backup -e s@localhost:3306@127.0.0.1@g -e s@pac1@mystok@g src/main/java/*.java
+sed -i _backup -e s@localhost:3306/j2a1b@127.0.0.1:3306/mystok@g -e s@pac1@mystok@g src/main/java/*.java
 rm -f src/main/java/*.java_backup
