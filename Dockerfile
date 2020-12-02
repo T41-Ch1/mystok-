@@ -8,4 +8,5 @@ RUN mvn -B package --file pom.xml -DskipTests
 FROM tomcat:8.5.41-jre8-alpine
 COPY --from=build /workspace/target/mystok.war /usr/local/tomcat/webapps/
 COPY ./conf/server.xml /usr/local/tomcat/conf/
+COPY ./ROOT/index.jsp /usr/local/tomcat/webapps/ROOT/
 EXPOSE 80
