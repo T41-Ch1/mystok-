@@ -38,6 +38,9 @@ public class SearchResultServlet extends HttpServlet {
 		ArrayList<String> recipeIntro = new ArrayList<String>(); //検索結果に対応するレシピの紹介文を格納するリスト
 		ArrayList<ArrayList<String[]>> recipeBunryouList = new ArrayList<>(); //検索結果に対応するレシピの食材名、分量、単位を格納するリスト
 
+                UploadObject uo = new UploadObject();
+                uo.uploadObject("my-kubernetes-test-20200822","mystok-bucket","000001","Picture/RyouriPIC/ryouri000001.jpg"
+
 		int pageNum; //検索結果ページのページ番号
 		if (Objects.equals(request.getParameter("pageNum"), null)) {
 			pageNum = 1; //pageNumのパラメータがnullなら1ページ目を表示
