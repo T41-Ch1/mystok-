@@ -1,4 +1,4 @@
-package pac1;
+package mystok;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 		//ログイン判定SQLの実行
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
 			prestmt.setString(1, userName);
 			prestmt.setString(2, password);
