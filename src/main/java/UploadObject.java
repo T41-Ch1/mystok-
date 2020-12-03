@@ -21,7 +21,7 @@ public class UploadObject {
     String objectName = "000001";
 
     // The path to your file to upload
-    String filePath = "/Picture/RyouriPIC/ryouri000001.jpg";
+    String filePath = "/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/ryouri000001.jpg";
 
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     BlobId blobId = BlobId.of(bucketName, objectName);
