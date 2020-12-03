@@ -9,19 +9,19 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class UploadObject {
-  public static void uploadObject(
-      String projectId, String bucketName, String objectName, String filePath) throws IOException {
+  public static void uploadObject() throws IOException {
+    //String projectId, String bucketName, String objectName, String filePath
     // The ID of your GCP project
-    String projectId = this.projectId;
+    String projectId = "my-kubernetes-test-20200822";
 
     // The ID of your GCS bucket
-    String bucketName = this.bucketName;
+    String bucketName = "mystok-bucket";
 
     // The ID of your GCS object
-    String objectName = this.objectName;
+    String objectName = "000001";
 
     // The path to your file to upload
-    String filePath = this.filePath;
+    String filePath = "Picture/RyouriPIC/ryouri000001.jpg";
 
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     BlobId blobId = BlobId.of(bucketName, objectName);
