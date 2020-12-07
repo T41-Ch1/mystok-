@@ -165,28 +165,42 @@ for ( int j = 0; j < list.get(i).size(); j++) {
 
 <%
 //検索結果が11件以上ならページ送りするためのリンクを用意する
+	//////////デバッグ用//////////
+	recipeNum = 1000;
+	//////////////////////////////
 if (recipeNum > 10) {
-	int pageTotal = recipeNum / 10 + 1;
+	int pageTotal = (recipeNum - 1) / 10 + 1;
+	String inputDataStr = URLEncoder.encode(inputData[0], "UTF-8");
+	for (int i = 1; i < inputData.length; i++)	inputDataStr += URLEncoder.encode("　" + inputData[i], "UTF-8");
 %>
       <div class="page-number">
         <ul class="page-list">
-      <li><<</li><li><</li><li>前へ</li>
-<%
-for (int i = 1; i <= pageTotal; i++) {
-	String buf = "<li><a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=";
-	for (int j = 0; j < inputData.length; j++)	{
-		//URLEncoderでencodeしないとEclipseで動かしたときエラーを吐く
-		if (j == 0) {
-			buf += URLEncoder.encode(inputData[j], "UTF-8");
-		} else {
-			buf += URLEncoder.encode("　" + inputData[j], "UTF-8");
-		}
-	}
-	buf += "&pageNum=" + i + "\">" + i + "</a></li>";
-	out.print(buf);
-}
-%>
-      <li>次へ</li><li>></li><li>>></li>
+      <!-- ｢<<｣の表示 -->
+      <li><%
+      if (pageNum == 1) out.print("<<");
+      else out.print("<a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=1\"><<</a>");
+      %></li>
+      <!-- ｢< 前へ｣の表示 -->
+      <li><%
+      if (pageNum == 1) out.print("< 前へ");
+      else out.print("<a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=" + (pageNum - 1) + "\">< 前へ</a>");
+      %></li>
+      <!-- ｢4 5 6 7 8 9 10 11 12｣の表示 pageNumの前後4件まで -->
+      <%
+      for (int i = Math.max(1, pageNum - 4); i <= Math.min(pageNum + 4, pageTotal); i++) {
+       out.print("<li><a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=" + i + "\">" + i + "</a></li>");
+      }
+      %>
+      <!-- ｢次へ >｣の表示 -->
+      <li><%
+      if (pageNum == pageTotal) out.print("次へ >");
+      else out.print("<a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=" + (pageNum + 1) + "\">次へ ></a>");
+      %></li>
+      <!-- ｢>>｣の表示 -->
+      <li><%
+      if (pageNum == pageTotal) out.print(">>");
+      else out.print("<a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=" + pageTotal +"\">>></a>");
+      %></li>
     </ul>
     </div>
 <%
