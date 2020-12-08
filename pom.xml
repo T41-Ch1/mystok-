@@ -84,7 +84,7 @@
           <version>3.3.0</version>
           <configuration>
             <descriptorRefs>
-              <descriptor>src/assembly/src.xml</descriptor>
+              <descriptor>maven-assembly.xml</descriptor>
             </descriptorRefs>
           </configuration>
           <executions>
