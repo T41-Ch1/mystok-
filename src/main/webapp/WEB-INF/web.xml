@@ -20,6 +20,7 @@
   </security-constraint>
   <login-config>
     <auth-method>FORM</auth-method>
+    <realm-name>jdbcRealm</realm-name>
     <form-login-config>
       <form-login-page>/login.jsp</form-login-page>
       <form-error-page>/error.jsp</form-error-page>
