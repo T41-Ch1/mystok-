@@ -6,7 +6,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>WEB-INF/lib</outputDirectory>
+            <outputDirectory>/usr/local/tomcat/lib</outputDirectory>
             <excludes>
                  <exclude>*:war</exclude>
             </excludes>
