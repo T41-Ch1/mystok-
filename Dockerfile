@@ -9,4 +9,5 @@ FROM tomcat:8.5
 COPY --from=build /workspace/target/mystok.war /usr/local/tomcat/webapps/
 COPY ./conf/server.xml /usr/local/tomcat/conf/
 COPY ./ROOT/index.jsp /usr/local/tomcat/webapps/ROOT/
+COPY ./lib/*.jar /usr/local/tomcat/lib/
 EXPOSE 80
