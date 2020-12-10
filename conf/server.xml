@@ -108,7 +108,7 @@
              resources under the key "UserDatabase".  Any edits
              that are performed against this UserDatabase are immediately
              available for use by the Realm.  -->
-         <Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="root" connectionPassword="password" connectionURL="jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST" driverName="com.mysql.jdbc.Driver" roleNameCol="Role" userCredCol="Password" userNameCol="UserName" userRoleTable="UserRoleTB" userTable="UserTB"/>
+         <Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="root" connectionPassword="password" connectionURL="jdbc:mysql://localhost:3306/mystok?serverTimezone=JST" driverName="com.mysql.jdbc.Driver" roleNameCol="Role" userCredCol="Password" userNameCol="UserName" userRoleTable="UserRoleTB" userTable="UserTB"/>
      </Realm>
 
       <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
