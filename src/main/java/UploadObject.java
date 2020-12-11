@@ -31,10 +31,10 @@ public class UploadObject {
     String bucketName = "mystok-bucket";
 
     // The ID of your GCS object
-    String objectName = objectName
+    //String objectName = objectName;
 
     // The path to your file to upload
-    String filePath = filePath 
+    //String filePath = filePath;
 
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     BlobId blobId = BlobId.of(bucketName, objectName);
