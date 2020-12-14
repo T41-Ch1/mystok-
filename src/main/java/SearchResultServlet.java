@@ -40,6 +40,8 @@ public class SearchResultServlet extends HttpServlet {
 
                 //UploadObject uo = new UploadObject();
                 //uo.uploadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/ryouri000001.jpg");
+                //DownloadObject do = new DownloadObject();
+                //do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
                 DownloadObject do = new DownloadObject();
                 do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
 
