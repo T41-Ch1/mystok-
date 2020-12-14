@@ -1,0 +1,196 @@
+@charset "utf-8";
+/*MENUのCSS*/
+
+/*p(セレクタ){aaa(プロパティ):aaa(値)}　　
+意味としてはhtmlのうちどこの(セレクタ)何を(プロパティ):どうするか(値)を設定する*/
+
+/*読みやすいコードのコツとしてp(){()()color:()red;}という風にスペースを入れる*/
+
+body {
+  margin: 0;/*隣あう要素との距離(余白)を設定する*記述はdiv {margin:  10px 20px 30px 40px；}
+               という風に記述する。記述の順番は　上→右→下→左　時計回りで覚える*/
+  padding: 0;
+    　　　　/*WEBブラウザによって余白サイズの初期値が異なる事があるので、初期値の解除を行う
+    　　　　　　margin: 0;　padding: 0;*/
+  background-color: gray;
+  color: #333333;
+  font-size: 15px;
+  line-height: 2;/*line-height=行間を指定*/
+}
+
+p,h1,h2,h3,h4,h5,h6 {/*複数のセレクタに同じスタイルを宣言もできる*/
+  margin-top: 0;/*h要素とp要素の間にはデフォで上部にマージンが設定されているので０で解除*/
+}
+
+img {
+  vertical-align:bottom;/*webブラウザによってはimg要素の下に余白ができる事があるのでbottomで調整
+                        vertical-align=テキストや画像の垂直方向の位置揃えを指定*/
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/*ヘッダーのCSS*/
+header {
+  margin: 0px;
+  padding: 0px;
+  /*height: 72px;*/
+  color: black;
+  width: 100%;
+  background-color: #e29676;
+  font-family: serif;
+}
+/*真ん中のレシピコンシェルのロゴ*/
+.headerline{
+  width: 1120px;
+  margin: 0 auto;
+}
+.nav .logo {
+  margin: 2px 600px 2px 10px;
+}
+/*ヘッダーの会員登録とログインのリンクリスト*/
+.nav {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.nav li {
+  margin: 15px 0px 0px;
+  list-style: none;
+  /**line-height:0;**/
+  font-size: 20px;
+  font-family:serif;
+  margin-right: 5px;
+}
+
+.nav li a {
+  color: black;
+}
+
+.nav li a:hover {
+  border-bottom: 2px solid #ffffff; /*下線とその色を指定*/
+  padding-bottom: 3px; /*下線の表示位置*/
+  text-decoration: none;
+}
+/**ヘッダーのCSS終了**/
+
+/*footerのCSS開始*/
+
+footer {
+  background-color: #e29676;
+
+}
+
+/*footerのCSS終了*/
+
+/*検索フォームのコード*/
+#form5{
+position:relative;
+margin-bottom:20px;
+}
+#sbox5{
+outline:0;
+height:50px;
+padding:0 200px;　/*検索窓のサイズ*/
+position:absolute;
+left:0;
+top:0;
+max-width:500px;
+border-radius:2px;
+background:#eee;
+}
+#sbtn5{
+width:100px;
+height:50px;
+position:absolute;
+left:600px;
+top:0;
+border-radius:2px;
+background:#7fbfff;
+color:#fff;
+font-weight:bold;
+font-size:16px;
+border:none;
+}
+#sbtn5:hover{
+background:#eee;
+color:#7fbfff;
+}
+/*検索フォーム*/
+
+.top a {
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'Roboto Slab', serif;
+}
+
+
+
+h2 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 24px;
+}
+
+.icon:before {
+  content: "";
+  padding-right: 10px;
+  border-left: 7px solid #9cb4a4;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+section {
+  margin-bottom: 35px;
+}
+
+
+.main {
+  width: 1100px;
+  margin: 0 10px;
+  float: center;
+}
+
+
+.photograph-list li {
+  float: left;
+  list-style: none;
+  margin: 0 20px 15px 0;
+}
+
+.photograph-list li:nth-child(4n) {
+  margin-right: 0;
+}
+
+
+ul.listtest2 {
+    display: table;
+    width:100%;
+}
+ul.listtest2 > li:nth-child(2n+1) {
+    clear: both;
+}
+ul.listtest2 > li {
+    display: table-cell;
+    float: left;
+    width: 50%;
+}
+
+
+
+.subject {
+   text-align: left;  /* 文章を左寄せする(※) */
+   float: left;     /* 左端に寄せて、後続を右側へ回り込ませる */
+}
+.date {
+   text-align: right; /* 文章を右寄せする */
+}
+
+
+

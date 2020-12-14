@@ -1,0 +1,352 @@
+@charset "utf-8";
+/*レシピコンシェルのトップページCSS*/
+
+/*--------------------------------------------------------------------------*/
+/*共通CSS*/
+html body {
+  height:100%;
+}
+p,h1,h2,h3,h4,h5,h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+img {
+  vertical-align:bottom;/*webブラウザによってはimg要素の下に余白ができる事があるのでbottomで調整
+  vertical-align=テキストや画像の垂直方向の位置揃えを指定*/
+}
+
+h1{
+  white-space: nowrap;
+  padding: 0;
+  color: white;
+  text-align: center;
+  font-family: serif;
+}
+
+h3{
+  white-space: nowrap;
+  font-size: 35px;
+  font-weight: bold;
+  font-family: serif;
+}
+h4{
+  text-align: center;
+  padding: 0;
+  color: white;
+  font-size: 20px;
+  font-family: serif;
+}
+p{
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: serif;
+}
+/*--------------------------------------------------------------------------*/
+
+/*ヘッダーのCSS*/
+header {
+  margin: 0px;
+  padding: 0px;
+  /*height: 72px;*/
+  color: black;
+  width: 100%;
+  background-color: #e29676;
+  font-family: serif;
+}
+/*真ん中のレシピコンシェルのロゴ*/
+.headerline{
+  width: 1120px;
+  margin: 0 auto;
+}
+.nav .logo {
+  margin: 2px 600px 2px 10px;
+}
+/*ヘッダーの会員登録とログインのリンクリスト*/
+.nav {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.nav li {
+  margin: 15px 0px 0px;
+  list-style: none;
+  /**line-height:0;**/
+  font-size: 20px;
+  font-family:serif;
+  margin-right: 5px;
+}
+
+.nav li a {
+  color: black;
+}
+
+.nav li a:hover {
+  border-bottom: 2px solid #ffffff; /*下線とその色を指定*/
+  padding-bottom: 3px; /*下線の表示位置*/
+  text-decoration: none;
+}
+/**ヘッダーのCSS終了**/
+
+/*--------------------------------------------------------------------------*/
+
+/*bodyのCSS開始*/
+body {
+  margin: 0px;
+  padding: 0px;
+  margin: 0 auto;
+  font-family: serif;
+}
+/*--------------------------------------------------------------------------*/
+/*aboxのCSS開始*/
+.abox{
+  clear: both;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: top;
+  background-image: url("../images/yasai.png");
+  margin: 0px;
+  padding: 0px;
+  height: 520px;
+  text-align: center;
+  /*  margin: 0 auto;*/
+}
+/*野菜の背景のdivCSS*/
+.aboximage {
+  text-align: center;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-image: url("../images/yasai.png");
+  background-size: auto;
+  background-color:#a86f4c;
+  margin: 0 auto;
+}
+
+/*--------------------------------------------------------------------------*/
+
+/*ラジオボタンのCSS*/
+.radio-font {
+  white-space: nowrap;
+  font-family: serif;
+  color: white;
+  position: relative;
+  margin: 0px;
+  height: auto;/*auto*/
+  padding: 5px;
+}
+
+.radio-font ul {
+  /*text-align: center;*/
+  display: flex;
+  justify-content: center;/*ラジオボタンをセンターに寄せる*/
+}
+
+.radio-font li{
+  list-style: none;
+  position: relative;
+}
+
+ul .radiolist {
+  text-align: center;
+  color: white;
+  font-family: serif;
+  display: block;
+  position: relative;
+  float: left;
+  /*  width: 100%;*/
+  /*  height: 100px;*//**/
+  /*border-bottom: 1px solid #333;*//*下線を引く*/
+}
+
+ul li input[type=radio]{
+  position: absolute;
+  transform: scale(1.5);
+  margin-right: 10px;
+  visibility: hidden;
+}
+
+label{
+  text-align: center;
+  position: relative;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 10px 10px 10px 60px;
+  /*margin: 10px auto;*/
+  height: 30px;
+  cursor: pointer;/*マウスオンしたときに指のマークに*/
+  z-index: 20;
+}
+
+ul li:hover label{
+  color: #f3a68c;
+  /*color: #FFFFFF;*/
+}
+
+ul li .check{
+  position: absolute;
+  border: 5px solid white;
+  border-radius: 100%;
+  height: 20px;/*サイズ変更２５でふぉ*/
+  width: 20px;
+  top: 8px;
+  left: 20px;
+  z-index: 3;
+  /*transition: border 0.1s linear;
+  -webkit-transition: border 0.1s linear;
+*/}
+
+ul li:hover .check {
+  /*border: 8px solid white;*/
+}
+
+ul li .check::before {
+  /*  display: block;*/
+  position: absolute;
+  content: '';
+  border-radius: 100%;/*中の丸の角１００で円に*/
+  height: 10px;/*サイズ変更１５でふぉ*/
+  width: 10px;
+  top: 5px;
+  left: 5px;
+  margin: auto;
+  /*transition: background 0.1s linear;
+  -webkit-transition: background 0.1s linear;
+*/}
+
+/*マウスオン後の挙動*/
+input[type=radio]:checked ~ .check {
+  border: 5px solid #f3a68c;/*丸の色*/
+  /*border: 5px solid #0DFF92;*/
+}
+
+input[type=radio]:checked ~ .check::before{
+  background: #f3a68c;/*マウスオンしたボタンの中の色*/
+  /*background: #0DFF92;*/
+}
+
+input[type=radio]:checked ~ label{
+  color: #f3a68c;/*ラベルの色*/
+  /*color: #0DFF92;*//*緑*/
+}
+
+
+/*ラジオボタンのCSS終了*/
+/*--------------------------------------------------------------------------*/
+/*検索窓開始*/
+
+input:invalid {
+  background-color: #ffdddd;
+}
+
+form {
+  margin: 0px;
+  text-align: center;
+}
+
+
+#mado {
+  outline:0;
+  height:50px;
+  padding:0 10px;  /*検索窓の入力開始地点*/
+  left:0px;
+  top:0px;
+  font-size: 18px;
+  max-width:500px;
+  border-radius:4%;
+  background:#eee;
+  box-shadow: 0 0 3px 0 gray;/*box-shadow:横方向のずれ 横方向のずれ ぼかしの大きさ 影の広がり 影の色;*/
+}
+
+#mbutton {
+  position: relative;
+  width:auto;/*100px;*/
+  height:50px;
+  left:0px;
+  top:2px;
+  border-radius:2%;
+  background:#7fbfff;
+  color:#fff;
+  font-family: serif;
+  font-weight:bold;
+  font-size:25px;
+  border:none;
+  cursor: pointer;
+}
+
+#mbutton:hover{
+  background:#eee;
+  color:#7fbfff;
+}
+/*--------------------------------------------------------------------------*/
+/*検索窓終了*/
+/*aboxのCSS終了*/
+/*--------------------------------------------------------------------------*/
+
+.about{
+  height: 30px;
+  /*text-align: center;*/
+  font-family: serif;
+  color: black;
+}
+.how{
+  color: black;
+}
+
+/*--------------------------------------------------------------------------*/
+/*bboxのCSS開始*/
+
+.bbox{
+  margin: 0 auto;
+  margin: 0px;
+  text-align: center;
+}
+/*bboxのCSS終了*/
+/*--------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------*/
+/*cboxのCSS開始*/
+
+.cbox{
+  text-align: center;
+}
+.cboximage{
+  height: 400px;
+  margin: 0px;
+  background-color: white;
+  width: 50%;
+  text-align: left;
+  float: left;
+  margin: 0 auto;
+}
+.cboxtext{
+  height: 400px;
+  background-color: white;
+  width: 50%;
+  float: left;
+  text-align: right;
+  margin: 0 auto;
+}
+/*cboxのCSS終了*/
+
+/*--------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------*/
+/*footerのCSS開始*/
+
+footer {
+  background-color: #e29676;
+
+}
+
+/*footerのCSS終了*/
+/*--------------------------------------------------------------------------*/
+
+
+/*bodyのCSS終了*/

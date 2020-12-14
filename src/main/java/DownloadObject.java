@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 //DownloadObject do = new DownloadObject();
 //
 //2.メソッド呼び出し
-//uo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
-//uo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Downloaded/000001.jpg");
+//do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
+//do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Downloaded/000001.jpg");
 //第一引数は"ダウンロード対象ファイルの名前"
 //第二引数は"ファイルのダウンロード先への絶対パス(ファイル名も含む)"
 
@@ -46,4 +46,4 @@ public class DownloadObject {
             + " to "
             + destFilePath);
   }
-
+}
