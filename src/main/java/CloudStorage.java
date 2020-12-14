@@ -9,13 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
-//使い方
+//UploadObjectの使い方
 //
 //1.インスタンス化
 //UploadObject uo = new UploadObject();
 //
 //2.メソッド呼び出し
 //uo.uploadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/ryouri000001.jpg");
+//uo.uploadObject("000001","/usr/local/tomcat/webapps/mystok/Uploaded/000001.jpg");
 //第一引数は"アップロード後の名前"
 //第二引数は"アップロード対象ファイルへの絶対パス"
 
@@ -43,5 +44,46 @@ public class UploadObject {
 
     System.out.println(
         "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
+  }
+}
+
+
+//DownloadObjectの使い方
+//
+//1.インスタンス化
+//DownloadObject do = new DownloadObject();
+//
+//2.メソッド呼び出し
+//uo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
+//uo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Downloaded/000001.jpg");
+//第一引数は"ダウンロード対象ファイルの名前"
+//第二引数は"ファイルのダウンロード先への絶対パス(ファイル名も含む)"
+
+public class DownloadObject {
+  public static void downloadObject(String objectName, String destFilePath) {
+    // The ID of your GCP project
+    String projectId = "my-kubernetes-test-20200822";
+
+    // The ID of your GCS bucket
+    String bucketName = "mystok-bucket";
+
+    // The ID of your GCS object
+    // String objectName = "your-object-name";
+
+    // The path to which the file should be downloaded
+    // String destFilePath = "/local/path/to/file.txt";
+
+    Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+
+    Blob blob = storage.get(BlobId.of(bucketName, objectName));
+    blob.downloadTo(Paths.get(destFilePath));
+
+    System.out.println(
+        "Downloaded object "
+            + objectName
+            + " from bucket name "
+            + bucketName
+            + " to "
+            + destFilePath);
   }
 }
