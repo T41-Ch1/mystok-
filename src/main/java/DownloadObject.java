@@ -11,13 +11,14 @@ import java.nio.file.Paths;
 //DownloadObjectの使い方
 //
 //1.インスタンス化
-//DownloadObject do = new DownloadObject();
+//DownloadObject doo = new DownloadObject();
 //
 //2.メソッド呼び出し
-//do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
-//do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Downloaded/000001.jpg");
+//doo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
+//doo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Downloaded/000001.jpg");
 //第一引数は"ダウンロード対象ファイルの名前"
 //第二引数は"ファイルのダウンロード先への絶対パス(ファイル名も含む)"
+
 
 public class DownloadObject {
   public static void downloadObject(String objectName, String destFilePath) {
