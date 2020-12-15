@@ -42,8 +42,10 @@ public class SearchResultServlet extends HttpServlet {
                 //uo.uploadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/ryouri000001.jpg");
                 //DownloadObject do = new DownloadObject();
                 //do.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
-                DownloadObject doo = new DownloadObject();
-                doo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
+                //DownloadObject doo = new DownloadObject();
+                //doo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
+                DeleteObject deo = new DeleteObject();
+                deo.deleteObject("000001");
 
 		int pageNum; //検索結果ページのページ番号
 		if (Objects.equals(request.getParameter("pageNum"), null)) {
