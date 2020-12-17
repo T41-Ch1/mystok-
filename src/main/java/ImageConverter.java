@@ -17,11 +17,11 @@ public class ImageConverter {
       File input = new File(input_path);
       File output = new File(output_path);
 
-      BufferedImage image = ImageIO.read(input);
-      BufferedImage result = new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
+      BufferedImage input_image = ImageIO.read(input);
+      BufferedImage output_image = new BufferedImage(input_image.getWidth(),input_image.getHeight(),BufferedImage.TYPE_INT_RGB);
 
-      result.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
-      ImageIO.write(result, "jpg", output);
+      result.createGraphics().drawImage(input_image, 0, 0, Color.WHITE, null);
+      ImageIO.write(output_image, "jpg", output);
 
     } catch(IOException e) {
       e.printStackTrace();
