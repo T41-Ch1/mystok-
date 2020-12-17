@@ -20,7 +20,7 @@ public class ImageConverter {
       BufferedImage input_image = ImageIO.read(input);
       BufferedImage output_image = new BufferedImage(input_image.getWidth(),input_image.getHeight(),BufferedImage.TYPE_INT_RGB);
 
-      result.createGraphics().drawImage(input_image, 0, 0, Color.WHITE, null);
+      output_image.createGraphics().drawImage(input_image, 0, 0, Color.WHITE, null);
       ImageIO.write(output_image, "jpg", output);
 
     } catch(IOException e) {
