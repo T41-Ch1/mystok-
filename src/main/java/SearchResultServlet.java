@@ -46,8 +46,8 @@ public class SearchResultServlet extends HttpServlet {
                 //doo.downloadObject("000001","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/my-cloudstorage-download-test000001.jpg");
                 //DeleteObject deo = new DeleteObject();
                 //deo.deleteObject("000001");
-                ImageConverter ic = new ImageConverter();
-                ic.imageConverter("/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/input.png","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/output.jpg");
+                //ImageConverter ic = new ImageConverter();
+                //ic.imageConverter("/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/input.png","/usr/local/tomcat/webapps/mystok/Picture/RyouriPIC/output.jpg");
 
 		int pageNum; //検索結果ページのページ番号
 		if (Objects.equals(request.getParameter("pageNum"), null)) {
