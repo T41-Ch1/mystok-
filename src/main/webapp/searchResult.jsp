@@ -38,19 +38,7 @@ list = (ArrayList<ArrayList<String[]>>)request.getAttribute("recipeBunryouList")
 <!--body開始-->
 <body><!--bodyにはWEBブラウザに表示させる内容を記載する-->
 
- <!-- header開始 -->
-    <header>
-      <div class="headerline">
-        <ul class="nav"><!--ヘッダーの会員登録とログインのリンクリスト１-->
-          <li class="logo"><!--真ん中のレシピコンシェルのロゴdiv１-->
-            <a href="top.jsp"><img src="images/logo.PNG"alt="Logo"></a>
-          </li>
-          <li class="kaiinn"><a href="consept.html">会員登録</a></li>
-          <li><a href="MENU.html">ログイン</a></li>
-        </ul>
-      </div>
-    </header>
-  <!-- header終了 -->
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 
   <!-- mainとasaid開始 -->
   <div id="wrap" class="clearfix">
@@ -118,8 +106,12 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
            </div>
           <div class="kennsaku">
            <!-- \u3041-\u3096は平仮名、\u3000は全角スペース、\u30fcは長音 これらの文字の組み合わせのみ許可する 正規表現で書いたのがpatternの所 -->
-           <input id="mado" type="text" name="input" value="<%=input%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 required>
-           <input id="mbutton" type="submit" value="検索">
+           <input id="mado" type="text" name="input" value="<%=input%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 placeholder=" 例）じゃがいも　かれー等　【ひらがな入力のみ】" title="ひらがなで入力して下さい" required>
+           <input id="mbutton" type="submit" value="検索" onclick="func1()">
+           <script>
+             let form = document.getElementById('mbutton');
+             form.addEventListener('submit', () => { form.disabled = true; }, false);
+            </script>
           </div>
             </form>
         </h1>
@@ -139,19 +131,25 @@ if (recipeNum == 0) {
            </div>
            <div class="racipe-text">
             <h2 class="recipetitle">
+              <a href="xxxx.html"><img src="images/無色ハート.png"
+                 alt="お気に入りボタン" width="30" height="30" class="heart"></a>
               <a class="recipititlelink" href="RecipeServlet?recipeID=<%= recipeID.get(i) %>&input=<%= URLEncoder.encode(input, "UTF-8") %>&searchMode=<%= searchMode %>"><%= recipeTitle.get(i) %></a></h2>
            <div class="material">
 <%
 out.println(recipeIntro.get(i) + "<br>");
-out.println("材料：<br>");
+out.println("材料：");
 for ( int j = 0; j < list.get(i).size(); j++) {
+	//分量の右端が.00のようになっていた場合削る
 	while (list.get(i).get(j)[1].length() > 0 && list.get(i).get(j)[1].substring(list.get(i).get(j)[1].length() - 1).equals("0")) {
 		list.get(i).get(j)[1] = list.get(i).get(j)[1].substring(0, list.get(i).get(j)[1].length() - 1);
 	}
 	if (list.get(i).get(j)[1].substring(list.get(i).get(j)[1].length() - 1).equals(".")) {
 		list.get(i).get(j)[1] = list.get(i).get(j)[1].substring(0, list.get(i).get(j)[1].length() - 1);
 	}
-	out.println(list.get(i).get(j)[0] + " " + list.get(i).get(j)[1] + " " + list.get(i).get(j)[2] + "<br>");
+	if (j > 0) out.println("、");
+	out.println(list.get(i).get(j)[0]);
+	//下は分量と単位も表示する
+	//out.println(list.get(i).get(j)[0] + " " + list.get(i).get(j)[1] + " " + list.get(i).get(j)[2] + "<br>");
 }
 %>
            </div>
@@ -165,9 +163,6 @@ for ( int j = 0; j < list.get(i).size(); j++) {
 
 <%
 //検索結果が11件以上ならページ送りするためのリンクを用意する
-	//////////デバッグ用//////////
-	recipeNum = 1000;
-	//////////////////////////////
 if (recipeNum > 10) {
 	int pageTotal = (recipeNum - 1) / 10 + 1;
 	String inputDataStr = URLEncoder.encode(inputData[0], "UTF-8");
@@ -210,12 +205,8 @@ if (recipeNum > 10) {
   </main>
 
 </div>
-<!-- footer開始 -->
-  <footer>
-    <h4><a href="top.jsp">TOPに戻る</a></h4>
-  </footer>
 
-<!-- footer終了 -->
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
 
 </div>
 

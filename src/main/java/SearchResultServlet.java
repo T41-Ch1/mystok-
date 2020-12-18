@@ -48,11 +48,9 @@ public class SearchResultServlet extends HttpServlet {
 		int recipeNum = 0; //表示するデータの件数
 
 		//inputDataとsearchModeの準備
-		String input; //入力されたデータを格納
-		if (Objects.equals(request.getParameter("input"), null)) {
-			input = ""; //pageNumのパラメータがnullなら1ページ目を表示
-		} else {
-			input = request.getParameter("input"); //そうでないなら送信されたパラメータpageNumを格納
+		String input = ""; //入力されたデータを格納
+		if (!Objects.equals(request.getParameter("input"), null)) {
+			input = request.getParameter("input"); //送信されたinputを格納
 		}
 		while (input.contains("　　")) input = input.replace("　　", "　"); //スペースが連続していたら1つに圧縮
 		if (input.charAt(0) == '　') input = input.substring(1); //スペースから始まっていたら削る
@@ -102,7 +100,6 @@ public class SearchResultServlet extends HttpServlet {
 			sql += ")) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = " + "?";
 			sql += ") order by Bunryou desc limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
 		}
-		System.out.println(sql);
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -137,6 +134,7 @@ public class SearchResultServlet extends HttpServlet {
 				}
 				prestmt.setString(dataNum + 1,inputData[0]);
 			}
+			System.out.println("表示レシピ検索SQL:" + prestmt.toString());
 
 			try (ResultSet rs = prestmt.executeQuery()) {
 				while (rs.next()) {
@@ -177,7 +175,7 @@ public class SearchResultServlet extends HttpServlet {
 				}
 				sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = '" + inputData[0] + "') order by Bunryou desc);";
 			}
-			System.out.println(sql);
+			System.out.println("レシピ件数検索SQL:" + sql);
 
 			try (
 					Connection conn = DriverManager.getConnection(

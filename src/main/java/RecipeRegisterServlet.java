@@ -28,21 +28,25 @@ import pac1.func.Util;
 @MultipartConfig(location = "/tmp", maxFileSize = 1024 * 1024 * 1)
 public class RecipeRegisterServlet extends HttpServlet {
 
-	String ryourimei = "";
-	String ryourikana = "";
-	String tukurikata = "";
-	String syoukai = "";
-	List<String> syokuzaikanalist = new ArrayList<>();
-	String[] recipeBunryouRecord = new String[2];
-	ArrayList<String[]> recipeBunryouList = new ArrayList<>();
-	int ryouriID = 0;
-	String sql1 = "";
-	String sql2 = "";
-	String sql3 = "";
-	final String SERVLET_PATH = "RecipeRegisterPageServlet";
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String ryourimei = "";
+		String ryourikana = "";
+		String tukurikata = "";
+		String syoukai = "";
+		String userName = request.getRemoteUser();
+		List<String> syokuzaikanalist = new ArrayList<>();
+		String[] recipeBunryouRecord = new String[2];
+		ArrayList<String[]> recipeBunryouList = new ArrayList<>();
+		int ryouriID = 0;
+		String sql1 = "";
+		String sql2 = "";
+		String sql3 = "";
+		final String SERVLET_PATH = "RecipeRegisterPageServlet";
+
+		//認証チェック
+		if (!Util.checkAuth(request, response)) return;
 
 		Part part = request.getPart("pic");
 		if (part.getSize() > 0) {
@@ -78,7 +82,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 		for (int i = 0; i < recipeBunryouList.size(); i++) recipeBunryouList.get(i)[1] = Util.sanitizing(recipeBunryouList.get(i)[1]);
 
 		//料理登録SQL(料理名)と料理登録SQL(料理ID検索)
-		sql1 = "insert into RyouriTB (RyouriKana, Ryourimei, Tukurikata, Syoukai) values (?, ?, ?, ?)";
+		sql1 = "insert into RyouriTB (RyouriKana, Ryourimei, Tukurikata, Syoukai, UserName) values (?, ?, ?, ?, ?)";
 		sql2 = "select RyouriID from RyouriTB where Ryourimei = ? order by RyouriID desc limit 1";
 
 		try {
@@ -95,7 +99,8 @@ public class RecipeRegisterServlet extends HttpServlet {
 			prestmt.setString(2, ryourimei);
 			prestmt.setString(3, tukurikata);
 			prestmt.setString(4, syoukai);
-			System.out.println(sql1);
+			prestmt.setString(5, userName);
+			System.out.println("料理登録SQL(料理名):" + prestmt.toString());
 			prestmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +112,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql2)) {
 			prestmt.setString(1, ryourimei);
-			System.out.println(sql2);
+			System.out.println("料理登録SQL(料理ID検索):" + prestmt.toString());
 			try (ResultSet rs = prestmt.executeQuery()) {
 				while (rs.next()) {
 					ryouriID = rs.getInt("RyouriID"); //条件を満たすRyouriIDを格納
@@ -135,6 +140,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 				prestmt.setString(2 + 3 * i, recipeBunryouList.get(i)[0]);
 				prestmt.setString(3 + 3 * i, recipeBunryouList.get(i)[1]);
 			}
+			System.out.println("料理登録SQL(分量):" + prestmt.toString());
 			prestmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

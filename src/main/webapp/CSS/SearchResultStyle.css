@@ -1,6 +1,5 @@
 @charset "utf-8";
 /*レシピコンシェルの検索結果CSS*/
-
 /*--------------------------------------------------------------------------*/
 /*共通CSS*/
 html {
@@ -58,7 +57,9 @@ img {
 div {
   display: block;
 }
-
+a:link {
+  text-decoration: none;
+}
 /*--------------------------------------------------------------------------*/
 /*ヘッダーのCSS*/
 header {
@@ -318,20 +319,26 @@ input[type=radio]:checked ~ label{
   object-fit: cover;
 }
 
-.recipeimage{
+.recipeimage {
   position: relative;
   padding: 10px;
   float: left;
-
   width: 200px;
   margin-right: 10px;
 }
 
-.recipetitle{
-
+.recipetitlelink {
+  color: #333333;
 }
-.material{
-  color: red;
+
+.recipetitlelink:hover {
+  text-decoration: underline;
+}
+.material {
+  color: #696969;
+}
+.toplink {
+  margin-top: 50px;
 }
 
 /*レシピの一覧表示終了*/
@@ -350,10 +357,25 @@ input[type=radio]:checked ~ label{
 .page-list li{
   padding:5px;
 }
-#narabikae{
-  margin: 20px 80px 20px 80px;
+
+#narabikae {
+  margin: 20px 60px 20px 60px;
+  width:auto;/*100px;*/
+  height:35px;
+  border-radius:2%;
+  background:#7fbfff;
+  color:#fff;
+  font-family: serif;
+  font-weight:bold;
+  font-size:18px;
+  border:none;
+  cursor: pointer;
 }
 
+#narabikae:hover{
+background:#eee;
+color:#7fbfff;
+}
 /*--------------------------------------------------------------------------*/
 /*サイドバーのCSS開始*/
 aside{
@@ -412,7 +434,7 @@ ul li input[type=radio]{
   position: absolute;
   visibility: hidden;
 }
-/*ul li labl*/
+
 .sradio-font label{
   text-align: center;
   /*display: block;*/

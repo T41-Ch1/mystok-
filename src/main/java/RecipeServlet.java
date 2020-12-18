@@ -55,13 +55,17 @@ public class RecipeServlet extends HttpServlet {
 					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql1)) {
+
 			while (rs.next()) {
 				recipe_name = rs.getString("Ryourimei");
 				tukurikata = rs.getString("Tukurikata");
 			}
+			System.out.println("レシピ詳細検索SQL(レシピ名、作り方):" + sql1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("レシピ詳細検索SQL(レシピ名、作り方)完了");
+		System.out.println("レシピ名:" + recipe_name + "作り方:" + tukurikata);
 
 		//食材名、分量、単位を検索
 		try (
@@ -70,7 +74,7 @@ public class RecipeServlet extends HttpServlet {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql2)) {
 			//必要な分量のデータが入ったArrayList recipe_bunryou1を作成する
-			//レコードstrの例:[[じゃがいも,1,個],[にんじん,2,本][牛肉,100,g]]
+			//レコードstrの例:[[じゃがいも,1,個],[にんじん,2,本],[牛肉,100,g]]
 			while (rs.next()) {
 				str[0] = rs.getString("syokuzaitb.Syokuzaimei");
 				str[1] = rs.getString("bunryoutb.Bunryou");
@@ -78,8 +82,17 @@ public class RecipeServlet extends HttpServlet {
 				recipe_bunryou.add(str);
 				str = new String[3];
 			}
+			System.out.println("レシピ詳細検索SQL(食材名、分量、単位):" + sql2);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		System.out.println("レシピ詳細検索SQL(食材名、分量、単位)完了");
+		for (int i = 0; i < recipe_bunryou.size(); i++) {
+			String buff = (i + 1) + "番目の分量:";
+			for (int j = 0; j < recipe_bunryou.size(); j++) {
+				buff += recipe_bunryou.get(i)[j];
+			}
+			System.out.println(buff);
 		}
 
 		//requestに属性を追加してJSPにフォワードする

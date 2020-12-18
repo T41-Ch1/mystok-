@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pac1.func.Util;
+
 /**
  * Servlet implementation class RecipeRegisterPageServlet
  */
@@ -27,6 +29,9 @@ public class RecipeRegisterPageServlet extends HttpServlet {
 		ArrayList<String> syokuzaikanalist = new ArrayList<>();
 		ArrayList<String> tannilist = new ArrayList<>();
 		final String JSP_PATH = "recipeRegister.jsp";
+
+		//認証チェック
+		if (!Util.checkAuth(request, response)) return;
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -47,6 +52,7 @@ public class RecipeRegisterPageServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("食材名取得SQL:select SyokuzaiKana, Tanni from SyokuzaiTB");
 		System.out.println("食材名取得SQL完了");
 		System.out.println("食材件数:" + syokuzaikanalist.size());
 

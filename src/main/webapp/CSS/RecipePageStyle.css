@@ -270,7 +270,11 @@ color:#7fbfff;
   font-family: 'Roboto Slab', serif;
 }
 
-
+h1 {
+  font-family: serif;
+  font-size: 45px;
+  margin-top: 20px;
+}
 
 h2 {
   font-family: 'Roboto Slab', serif;
@@ -348,7 +352,10 @@ section {
 	border: 2px solid #ccc;
 }
 
-
+.heart {
+  padding-right: 30px;
+  margin-bottom: 10px;
+}
 
 /*--------------------------------------------------------------------------*/
 /*footerのCSS開始*/

@@ -10,7 +10,7 @@ body {
   margin: 0;/*隣あう要素との距離(余白)を設定する*記述はdiv {margin:  10px 20px 30px 40px；}
                という風に記述する。記述の順番は　上→右→下→左　時計回りで覚える*/
   padding: 0;
-    　　　　/*WEBブラウザによって余白サイズの初期値が異なる事があるので、初期値の解除を行う
+    /*WEBブラウザによって余白サイズの初期値が異なる事があるので、初期値の解除を行う
     　　　　　　margin: 0;　padding: 0;*/
   background-color: gray;
   color: #333333;
@@ -94,7 +94,7 @@ margin-bottom:20px;
 #sbox5{
 outline:0;
 height:50px;
-padding:0 200px;　/*検索窓のサイズ*/
+padding:0 200px; /*検索窓のサイズ*/
 position:absolute;
 left:0;
 top:0;

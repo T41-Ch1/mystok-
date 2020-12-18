@@ -20,38 +20,27 @@
 <!--body開始-->
   <body>
 
-<!-- header開始 -->
-    <header>
-      <div class ="headerline">
-      <ul class="nav"><!--ヘッダーの会員登録とログインのリンクリスト１-->
-        <li class="logo"><!--真ん中のレシピコンシェルのロゴdiv１-->
-          <a href="top.jsp"><img src="images/logo.PNG"alt="Logo"></a>
-        </li>
-        <li class ="kaiinn"><a href="consept.html">会員登録</a></li>
-        <li><a href="MENU.html">ログイン</a></li>
-      </ul>
-    </div>
-    </header>
-<!-- header終了 -->
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 
 <!-- ここからログインの枠+入力フォーム等の入力 -->
 <div class="form-wrapper">
   <h1>ログイン</h1>
-  <form action="j_security_check" method="post">
+  <form action="LoginServlet" method="post">
+    <input type="hidden" name="targetURI" value="<%= (String)session.getAttribute("targetURI") %>"></input>
     <div class="form-item">
-      <label for="email"></label><!-- autocomplete=off これ入れたら検索候補をなくせる -->
-      <input type="text" name="j_username" required placeholder="　アカウント名を入力"></input>
+      <label for="username"></label><!-- autocomplete=off これ入れたら検索候補をなくせる -->
+      <input type="text" name="username" required placeholder="　アカウント名を入力"></input>
     </div>
     <div class="form-item">
       <label for="password"></label>
-      <input type="password" name="j_password" required placeholder="　パスワード"></input>
+      <input type="password" name="password" required placeholder="　パスワード"></input>
     </div>
     <div class="button-panel">
       <input type="submit" class="button" title="Sign In" value="ログイン"></input>
     </div>
   </form>
   <div class="form-footer">
-    <p><a href="#">新規会員登録はこちら</a></p>
+    <p><a href="newuser.jsp">新規会員登録はこちら</a></p>
     <p><a href="#">ここはもしかしたら使うかも</a></p>
   </div>
 </div>
@@ -59,12 +48,7 @@
 
   <!-- wrap終了 -->
 
-<!-- footer開始 -->
-  <footer>
-  <h4><a href="top.jsp">TOPに戻る</a></h4>
-  </footer>
-
-<!-- footer終了 -->
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
 
 </body>
 </html>

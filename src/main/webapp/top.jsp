@@ -16,19 +16,7 @@
 <!--body開始-->
   <body>
 
-<!-- header開始 -->
-    <header>
-      <div class ="headerline">
-        <ul class="nav"><!--ヘッダーの会員登録とログインのリンクリスト１-->
-          <li class="logo"><!--真ん中のレシピコンシェルのロゴdiv１-->
-            <a href="top.jsp"><img src="images/logo.PNG"alt="Logo"></a>
-          </li>
-          <li class ="kaiinn"><a href="consept.html">会員登録</a></li>
-          <li><a href="mypage.jsp">ログイン</a></li>
-        </ul>
-    </div>
-    </header>
-<!-- header終了 -->
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 
 
 <!--aboxが開始-->
@@ -59,7 +47,8 @@
 
   <!--検索窓開始-->
             <!-- \u3041-\u3096は平仮名、\u3000は全角スペース、\u30fcは長音 これらの文字の組み合わせのみ許可する 正規表現で書いたのがpatternの所 -->
-            <input id="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 placeholder=" 例）じゃがいも　カレー等"  required>
+            <input id="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50
+             placeholder=" 例）じゃがいも　かれー等　【ひらがな入力のみ】" title="ひらがなで入力して下さい" required>
             <input id = "mbutton" type="submit" value="レシピ検索">
             <script>
              let form = document.getElementById('mbutton');
@@ -100,13 +89,7 @@
       </div>
     </div>
 <!--cboxが終了-->
-
-<!-- footer開始 -->
-  <footer>
-    <h4><a href="top.jsp">TOPに戻る</a></h4>
-  </footer>
-
-<!-- footer終了 -->
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
   </body>
 <!--head終了-->
 </html>

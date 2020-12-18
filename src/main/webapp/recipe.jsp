@@ -11,19 +11,7 @@
 </head>
 <body id="photograph"><!--bodyにはWEBブラウザに表示させる内容を記載する-->
 
-  <!-- header開始 -->
-      <header>
-        <div class ="headerline">
-        <ul class="nav"><!--ヘッダーの会員登録とログインのリンクリスト１-->
-          <li class="logo"><!--真ん中のレシピコンシェルのロゴdiv１-->
-            <a href="top.jsp"><img src="images/logo.PNG"alt="Logo"></a>
-          </li>
-          <li class ="kaiinn"><a href="consept.html">会員登録</a></li>
-          <li><a href="MENU.html">ログイン</a></li>
-        </ul>
-      </div>
-      </header>
-  <!-- header終了 -->
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 
 <%
 String recipe_name = (String)request.getAttribute("recipe_name"); //表示するレシピ名
@@ -69,21 +57,26 @@ if (Objects.equals(request.getAttribute("input"), null)) {
 
   <!--検索窓開始-->
   <!-- \u3041-\u3096は平仮名、\u3000は全角スペース、\u30fcは長音 これらの文字の組み合わせのみ許可する 正規表現で書いたのがpatternの所 -->
-      <input id="mado" type="text" name="input" value="<%=input%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 required>
+      <input id="mado" type="text" name="input" value="<%=input%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 placeholder=" 例）じゃがいも　かれー等　【ひらがな入力のみ】" required>
       <input id ="mbutton" type="submit" value="レシピ検索" onclick="func1()">
-      <!--
-        <script>
+      <script>
           function func1() {
               document.getElementById("mbutton").disabled = true;
           }
-        </script>
-       -->
+      </script>
     </form>
   <!--検索窓終了-->
 
-
 <!--料理名（タイトル）-->
- <p><font size="7">　<%= recipe_name %></font></p>
+<!--<span><a href="xxxx.html"><img src="images/無色ハート.png"
+   alt="お気に入りボタン" width="40" height="40" class="heart"></a></span>
+   <span><p><font size="7">肉じゃが</font>
+
+ </p>
+-->
+<h1><a href="xxxx.html"><img src="images/無色ハート.png"
+   alt="お気に入りボタン" width="40" height="40" class="heart"></a><%= recipe_name %></h1>
+
 <!--料理名（タイトル）終了-->
 
 <!-- 料理の写真 -->
@@ -133,13 +126,8 @@ for (int i = 0; i < tukurikataSplit.length; i++) {
     </div>
   </div>
   <!-- wrap終了 -->
-  <!-- footer開始 -->
-  <footer>
-  <div class="top">
-      <a href="top.jsp">TOPへ戻る</a>
-    </div>
-  </footer>
-  <!-- footer終了 -->
+
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
 
 </body>
 </html>
