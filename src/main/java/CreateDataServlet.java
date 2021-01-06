@@ -89,6 +89,22 @@ public class CreateDataServlet extends HttpServlet {
 		out.println("<br>");
 
 		//BunryouTBのデータ
+		out.println("insert into BunryouTB values (1,1,3);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (1,2,4);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (1,3,3);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (2,1,3);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (2,2,4);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (2,3,3);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (3,1,3);");
+		out.println("<br>");
+		out.println("insert into BunryouTB values (3,4,4);");
+		out.println("<br>");
 		for (int i=4;i<=36;i++){
 			out.println("insert into BunryouTB values ("+ i +",1," + (int)(Math.random()*10+1) + ");");
 			out.println("<br>");

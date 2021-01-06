@@ -35,7 +35,7 @@ ArrayList<String> ryourimei = (ArrayList<String>)request.getAttribute("ryourimei
 <%
 for (int i=0;i<recipeID.size();i++) {
 %>
-<div class="pic_frame"><li><a href="RecipeServlet?recipeID=<%= recipeID.get(i) %>"><img src="Picture/RyouriPIC/ryouri<%=String.format("%06d", recipeID.get(i))%>.jpg" alt="レシピページ遷移"><p><%= ryourimei.get(i) %></p></a></li>
+<div class="pic_frame"><li><a href="RecipeServlet?recipeID=<%= recipeID.get(i) %>"><img src="images/RyouriPIC/ryouri<%=String.format("%06d", recipeID.get(i))%>.jpg" alt="レシピページ遷移"><p><%= ryourimei.get(i) %></p></a></li>
 <img class="favo" src="images/色ハート.png" width="20" height="20"></div>
 <%
 }
@@ -44,7 +44,7 @@ for (int i=0;i<recipeID.size();i++) {
 //テスト用に25件並べる
 for (int i=recipeID.size();i<25;i++) {
 %>
-<div class="pic_frame"><li><a href="RecipeServlet?recipeID=<%= recipeID.get(0) %>"><img src="Picture/RyouriPIC/ryouri<%=String.format("%06d", recipeID.get(0))%>.jpg" alt="レシピページ遷移"><p><%= ryourimei.get(0) %></p></a></li>
+<div class="pic_frame"><li><a href="RecipeServlet?recipeID=<%= recipeID.get(0) %>"><img src="images/RyouriPIC/ryouri<%=String.format("%06d", recipeID.get(0))%>.jpg" alt="レシピページ遷移"><p><%= ryourimei.get(0) %></p></a></li>
 <img class="favo" src="images/色ハート.png" width="20" height="20"></div>
 <%
 }

@@ -8,6 +8,7 @@
 <title>新規登録画面</title>
 </head>
 <body>
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 <form action="NewUserServlet" method="post">
 名前<input type="text" name="name" size="20" required>
 <br>
@@ -16,5 +17,6 @@
 <input type="submit" value="送信">
 
 </form>
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
 </body>
 </html>

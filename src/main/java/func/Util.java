@@ -22,10 +22,12 @@ public class Util {
 				.replaceAll("\"", "&quot;")
 				.replaceAll("\'", "&apos;");
 	}
-
-	public static boolean favoInfo(int recipeID,String userName) {
+	public static boolean favoInfo(int recipeID, String userName) {
 		boolean existsData = false;
 		String sql = "";
+		if (userName == null) {
+			return existsData;
+		}
 
 		sql = "select * from FavoTB where UserName = ? and RyouriID = ?";
 		try {
@@ -38,10 +40,8 @@ public class Util {
 				Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
-
 			prestmt.setString(1,userName);
 			prestmt.setInt(2,recipeID);
-			System.out.println("Favo判定(1件)SQL:" + prestmt.toString());
 			try (ResultSet rs = prestmt.executeQuery()) {
 				while (rs.next()) {
 					existsData = true;
@@ -50,13 +50,18 @@ public class Util {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Favo判定(1件)SQL結果:" + existsData);
+		System.out.println(existsData);
 		return existsData;
 	}
-
 	public static ArrayList<Boolean> favoInfo(ArrayList<Integer> recipeID, String userName) {
 		ArrayList<Boolean> existsData = new ArrayList<>();
 		String sql = "";
+		if (userName == null) {
+			for (int i = 0; i < recipeID.size();i++) {
+				existsData.add(false);
+			}
+			return existsData;
+		}
 
 		sql = "select RyouriID from FavoTB where UserName = ? and RyouriID in (?";
 		for (int i=1;i<=recipeID.size()-1;i++) {
@@ -68,7 +73,6 @@ public class Util {
 		}
 		sql += ")";
 
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (Exception e) {
@@ -79,20 +83,15 @@ public class Util {
 				Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
-
-			prestmt.setString(1,userName);
-			for (int i=0;i<recipeID.size();i++) {
-				prestmt.setInt(i+2,recipeID.get(i));
-				prestmt.setInt(i+2+recipeID.size(),recipeID.get(i));
+			prestmt.setString(1, userName);
+			for (int i = 0; i < recipeID.size(); i++) {
+				prestmt.setInt(i + 2, recipeID.get(i));
+				prestmt.setInt(i + 2 + recipeID.size(), recipeID.get(i));
 			}
-			System.out.println("Favo判定(リスト)SQL:" + prestmt.toString());
-
 			try (ResultSet rs = prestmt.executeQuery()) {
 				ArrayList<Integer> result = new ArrayList<>();
-
 				while (rs.next()) {
 					result.add(rs.getInt("RyouriID"));
-
 				}
 				for (int i = 0; i < recipeID.size(); i++) {
 					if (result.indexOf(recipeID.get(i)) == -1) {
@@ -100,16 +99,15 @@ public class Util {
 					} else {
 						existsData.add(true);
 					}
-
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Favo判定(リスト)SQL結果:" + Arrays.toString(existsData.toArray()));
+
+		System.out.println(Arrays.toString(existsData.toArray()));
 		return existsData;
 	}
-
 	public static boolean existsUser(String userName) {
 		String sql = "";
 		sql = "select * from UserTB where UserName = ?";
@@ -123,25 +121,17 @@ public class Util {
 				Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
-
-			prestmt.setString(1,userName);
-			System.out.println("ユーザ名重複検索SQL:" + prestmt.toString());
+			prestmt.setString(1, userName);
 			try (ResultSet rs = prestmt.executeQuery()) {
-
-
 				while (rs.next()) {
-					System.out.println("ユーザ名重複検索結果:true");
 					return true;
 				}
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("ユーザ名重複検索結果:false");
 		return false;
 	}
-
 	public static boolean checkAuth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		//認証チェック
 		HttpSession session = request.getSession(false);
@@ -164,3 +154,4 @@ public class Util {
 		return true;
 	}
 }
+

@@ -16,7 +16,7 @@
 formによるアップロードファイルサイズの制限だけでは不十分なため、サーバー側でもファイルサイズをチェックする処理を追加する
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  -->
-
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 <%
 //認証チェック
 if (!Util.checkAuth(request, response)) return;
@@ -119,7 +119,7 @@ const fileInput = document.getElementById('ryouripic'); // input要素
 // changeイベントで呼び出す関数
 const handleFileSelect = () => {
   const files = fileInput.files;
-  for (let i = 0; i < files.length; i++) {
+  for (var i = 0; i < files.length; i++) {
     if (files[i].size > sizeLimit) {
       // ファイルサイズが制限以上
       alert('ファイルサイズは1MB以下にしてください'); // エラーメッセージを表示
@@ -198,6 +198,6 @@ if (Objects.equals(request.getAttribute("register_success"), "success")) {
 <%
 }
 %>
-
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
 </body>
 </html>

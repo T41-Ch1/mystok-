@@ -49,53 +49,6 @@ p{
 }
 /*--------------------------------------------------------------------------*/
 
-/*ヘッダーのCSS*/
-header {
-  margin: 0px;
-  padding: 0px;
-  /*height: 72px;*/
-  color: black;
-  width: 100%;
-  background-color: #e29676;
-  font-family: serif;
-}
-/*真ん中のレシピコンシェルのロゴ*/
-.headerline{
-  width: 1120px;
-  margin: 0 auto;
-}
-.nav .logo {
-  margin: 2px 600px 2px 10px;
-}
-/*ヘッダーの会員登録とログインのリンクリスト*/
-.nav {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.nav li {
-  margin: 15px 0px 0px;
-  list-style: none;
-  /**line-height:0;**/
-  font-size: 20px;
-  font-family:serif;
-  margin-right: 5px;
-}
-
-.nav li a {
-  color: black;
-}
-
-.nav li a:hover {
-  border-bottom: 2px solid #ffffff; /*下線とその色を指定*/
-  padding-bottom: 3px; /*下線の表示位置*/
-  text-decoration: none;
-}
-/**ヘッダーのCSS終了**/
-
-/*--------------------------------------------------------------------------*/
-
 /*bodyのCSS開始*/
 body {
   margin: 0px;
@@ -202,9 +155,11 @@ ul li .check{
   -webkit-transition: border 0.1s linear;
 */}
 
+/*
 ul li:hover .check {
-  /*border: 8px solid white;*/
+  border: 8px solid white;
 }
+*/
 
 ul li .check::before {
   /*  display: block;*/
@@ -335,17 +290,6 @@ form {
 }
 /*cboxのCSS終了*/
 
-/*--------------------------------------------------------------------------*/
-
-/*--------------------------------------------------------------------------*/
-/*footerのCSS開始*/
-
-footer {
-  background-color: #e29676;
-
-}
-
-/*footerのCSS終了*/
 /*--------------------------------------------------------------------------*/
 
 

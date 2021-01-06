@@ -61,54 +61,6 @@ a:link {
   text-decoration: none;
 }
 /*--------------------------------------------------------------------------*/
-/*ヘッダーのCSS*/
-header {
-  margin: 0px;
-  padding: 0px;
-  /*height: 72px;*/
-  color: black;
-  width: 100%;
-  background-image: url('cork-board.png');
-  background-color: #e29676;
-  font-family: serif;
-}
-/*真ん中のレシピコンシェルのロゴ*/
-.headerline{
-  width: 1120px;
-  margin: 0 auto;
-}
-.nav .logo {
-  margin: 2px 600px 2px 10px;
-}
-/*ヘッダーの会員登録とログインのリンクリスト*/
-.nav {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.nav li {
-  margin: 15px 0px 0px;
-  list-style: none;
-  /**line-height:0;**/
-  font-size: 20px;
-  font-family:serif;
-  margin-right: 5px;
-}
-
-.nav li a {
-  color: black;
-}
-
-.nav li a:hover {
-  border-bottom: 2px solid #ffffff; /*下線とその色を指定*/
-  padding-bottom: 3px; /*下線の表示位置*/
-  text-decoration: none;
-}
-/**ヘッダーのCSS終了**/
-
-/*--------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------*/
 /*コンテンツ全体ののCSS開始*/
 #wrap {
   clear: both;/*回り込みの解除*/
@@ -268,9 +220,11 @@ ul li .check{
 -webkit-transition: border 0.1s linear;
 */}
 
+/*
 ul li:hover .check {
-/*  border: 5px solid #FFFFFF;*/
+ border: 5px solid #FFFFFF;
 }
+*/
 
 ul li .check::before {
 /*  display: block;*/
@@ -470,9 +424,11 @@ ul li .scheck{
 -webkit-transition: border 0.1s linear;
 */}
 
+/*
 ul li:hover .scheck {
-/*  border: 5px solid #FFFFFF;*/
+  border: 5px solid #FFFFFF;
 }
+*/
 
 ul li .scheck::before {
 /*  display: block;*/
@@ -504,20 +460,6 @@ input[type=radio]:checked ~ label{
 /*--------------------------------------------------------------------------*/
 
 /*サイドバーのCSS終了*/
-/*--------------------------------------------------------------------------*/
-
-
-/*--------------------------------------------------------------------------*/
-/*footerのCSS開始*/
-
-footer {
-  height: 100px;
-  color: white;
-  background-color: #e29676;
-
-}
-
-/*footerのCSS終了*/
 /*--------------------------------------------------------------------------*/
 /*bodyのCSS終了*/
 /*--------------------------------------------------------------------------*/

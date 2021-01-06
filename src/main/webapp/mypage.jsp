@@ -8,6 +8,7 @@
 <title>テスト用マイページ</title>
 </head>
 <body>
+<jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 	<%
 	//認証チェック
 	if (!Util.checkAuth(request, response)) return;
@@ -34,5 +35,6 @@
 	<a href="javascript:form3.submit()">献立登録ページ</a>
 	</form>
 	<a href="logout.jsp">ログアウト</a>
+<jsp:include page="footer.jsp" /><!-- フッター部分 -->
 </body>
 </html>

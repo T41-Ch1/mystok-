@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pac1.func.Util;
+
 /**
  * Servlet implementation class RecipeServlet
  */
 @WebServlet("/RecipeServlet")
 public class RecipeServlet extends HttpServlet {
-	String recipeID = ""; //表示するレシピのID
+	int recipeID = 0; //表示するレシピのID
 	String searchMode = ""; //検索窓のラジオボタンに最初からチェックを入れる方
 	String input = ""; //検索窓に最初から表示させる文字列
 	String recipe_name = ""; //料理名
@@ -32,9 +34,11 @@ public class RecipeServlet extends HttpServlet {
 		ArrayList<String[]> recipe_bunryou = new ArrayList<>(); //strの情報を順に格納する
 
 		//recipeID, searchMode, inputの準備
-		recipeID = request.getParameter("recipeID");//検索結果画面からパラメータrecipeIDをgetして変数recipeIDに代入する
+		recipeID = Integer.parseInt(request.getParameter("recipeID"));//検索結果画面からパラメータrecipeIDをgetして変数recipeIDに代入する
 		//recipeID = "2"; レシピページ単体でテストをする場合こっちに切り替える
 		System.out.println("レシピID:" + request.getParameter("recipeID"));
+		String userName = request.getRemoteUser(); //ユーザ名 ログイン中でなければnullが格納される
+		boolean favo = false; //ログイン中のユーザがお気に入り登録しているかどうか
 		searchMode = request.getParameter("searchMode");//検索窓のラジオボタンに最初からチェックを入れる方を取得する
 		input = request.getParameter("input"); //検索窓に最初から表示させる文字列を取得する
 
@@ -70,7 +74,7 @@ public class RecipeServlet extends HttpServlet {
 		//食材名、分量、単位を検索
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST", "root", "password");
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql2)) {
 			//必要な分量のデータが入ったArrayList recipe_bunryou1を作成する
@@ -95,12 +99,16 @@ public class RecipeServlet extends HttpServlet {
 			System.out.println(buff);
 		}
 
+		//Favo確認SQLを表示レシピに対して実行
+		favo = Util.favoInfo(recipeID, userName);
+
 		//requestに属性を追加してJSPにフォワードする
-		request.setAttribute("searchMode",searchMode);
-		request.setAttribute("input",input);
-		request.setAttribute("recipe_name",recipe_name);
+		request.setAttribute("searchMode", searchMode);
+		request.setAttribute("input", input);
+		request.setAttribute("recipe_name", recipe_name);
 		request.setAttribute("tukurikata", tukurikata);
 		request.setAttribute("recipeID", recipeID);
+		request.setAttribute("favo", favo);
 		request.setAttribute("recipe_bunryou", recipe_bunryou);
 		RequestDispatcher rd = request.getRequestDispatcher(JSP_PATH);
 		rd.forward(request, response);

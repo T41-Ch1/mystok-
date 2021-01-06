@@ -50,7 +50,7 @@ public class FavoPageServlet extends HttpServlet {
 					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
 
-			prestmt.setString(1,userName);
+			prestmt.setString(1, userName);
 			System.out.println("Favoレシピ検索SQL:" + prestmt.toString());
 			try (ResultSet rs = prestmt.executeQuery()) {
 				while (rs.next()) {

@@ -29,6 +29,16 @@ ul {
   margin: 0px;
   padding: 0px;
 }
+
+h4 {
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  color: white;
+  font-size: 20px;
+  font-family: serif;
+}
+
 /*
 a {
   *//*color: #3583aa;*//*通常のリンクの文字色を青に*/
@@ -37,53 +47,6 @@ a {
 /*
 a:visited {*/
   /*color: #788d98;*//*訪問後のリンクの文字色をグレーに*/
-
-/*--------------------------------------------------------------------------*/
-
-/*ヘッダーのCSS*/
-header {
-  margin: 0px;
-  padding: 0px;
-  /*height: 72px;*/
-  color: black;
-  width: 100%;
-  background-color: #e29676;
-  font-family: serif;
-}
-/*真ん中のレシピコンシェルのロゴ*/
-.headerline{
-  width: 1120px;
-  margin: 0 auto;
-}
-.nav .logo {
-  margin: 2px 600px 2px 10px;
-}
-/*ヘッダーの会員登録とログインのリンクリスト*/
-.nav {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.nav li {
-  margin: 15px 0px 0px;
-  list-style: none;
-  /**line-height:0;**/
-  font-size: 20px;
-  font-family:serif;
-  margin-right: 5px;
-}
-
-.nav li a {
-  color: black;
-}
-
-.nav li a:hover {
-  border-bottom: 2px solid #ffffff; /*下線とその色を指定*/
-  padding-bottom: 3px; /*下線の表示位置*/
-  text-decoration: none;
-}
-/**ヘッダーのCSS終了**/
 
 /*--------------------------------------------------------------------------*/
 
@@ -104,11 +67,6 @@ a:hover {
   margin: 0 auto;
 }
 
-footer {
-  text-align: center;
-  padding: 20px 0;
-  background-color:#8D6E63;
-}
 /*--------------------------------------------------------------------------*/
 
 /*ラジオボタンのCSS*/
@@ -180,9 +138,11 @@ ul li .check{
 -webkit-transition: border 0.1s linear;
 */}
 
+/*
 ul li:hover .check {
-/*  border: 5px solid #FFFFFF;*/
+  border: 5px solid #FFFFFF;
 }
+*/
 
 ul li .check::before {
 /*  display: block;*/
@@ -274,6 +234,7 @@ h1 {
   font-family: serif;
   font-size: 45px;
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 h2 {
@@ -287,57 +248,37 @@ h2 {
   border-left: 7px solid #9cb4a4;
 }
 
-.clearfix:after {
+.clearfix::after {
   content: "";
   display: block;
   clear: both;
 }
 
-section {
-  margin-bottom: 35px;
+.titlebox {
+  display: flex;
 }
 
+.title {
+  font-family: serif;
+  font-weight: bold;
+  font-size: 45px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.iconbutton {
+  margin-top: 35px;
+  margin-left: 15px;
+}
+
+#heart {
+  padding-left: 8px;
+}
 
 .main {
   width: 1100px;
   margin: 0 10px;
 }
-
-
-.photograph-list li {
-  float: left;
-  list-style: none;
-  margin: 0 20px 15px 0;
-}
-
-.photograph-list li:nth-child(4n) {
-  margin-right: 0;
-}
-
-
-ul.listtest2 {
-    display: table;
-    width:100%;
-}
-ul.listtest2 > li:nth-child(2n+1) {
-    clear: both;
-}
-ul.listtest2 > li {
-    display: table-cell;
-    float: left;
-    width: 50%;
-}
-
-
-
-.subject {
-   text-align: left;  /* 文章を左寄せする(※) */
-   float: left;     /* 左端に寄せて、後続を右側へ回り込ませる */
-}
-.date {
-   text-align: right; /* 文章を右寄せする */
-}
-
 
 
 
@@ -351,19 +292,3 @@ section {
 	border-radius: 10px;
 	border: 2px solid #ccc;
 }
-
-.heart {
-  padding-right: 30px;
-  margin-bottom: 10px;
-}
-
-/*--------------------------------------------------------------------------*/
-/*footerのCSS開始*/
-
-footer {
-  background-color: #e29676;
-
-}
-
-/*footerのCSS終了*/
-/*--------------------------------------------------------------------------*/

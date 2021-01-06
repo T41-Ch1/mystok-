@@ -18,7 +18,6 @@
 
 <jsp:include page="header.jsp" /><!-- ヘッダー部分 -->
 
-
 <!--aboxが開始-->
   <div class="abox"><!--三要素構成-"abox"div２-->
       <div class ="abox-image"></div><!--野菜の背景のdiv３-->
@@ -49,10 +48,13 @@
             <!-- \u3041-\u3096は平仮名、\u3000は全角スペース、\u30fcは長音 これらの文字の組み合わせのみ許可する 正規表現で書いたのがpatternの所 -->
             <input id="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50
              placeholder=" 例）じゃがいも　かれー等　【ひらがな入力のみ】" title="ひらがなで入力して下さい" required>
-            <input id = "mbutton" type="submit" value="レシピ検索">
+            <input id="mbutton" type="submit" value="レシピ検索" onclick="func1()">
             <script>
-             let form = document.getElementById('mbutton');
-             form.addEventListener('submit', () => { form.disabled = true; }, false);
+             //二度押し防止機能
+             function func1() {
+              document.mkensaku.submit();
+              document.getElementById('mbutton').disabled = true;
+             }
             </script>
           </form>
   <!--検索窓終了-->
@@ -70,7 +72,7 @@
  <!--bboxが開始-->
  <div class = "bbox"><!--三要素構成-"bbox"div８-->
   <div class="bboximage"><!--野菜の背景のdiv９-->
-    <img src="images/s.setumei.png"alt="サイト説明">
+    <img src="images/s.setumei.png" alt="サイト説明">
   </div>
  </div>
   <!--bboxが終了-->
@@ -85,7 +87,7 @@
     </div>
       <div class ="cboximage"><!--野菜の背景のdiv１２-->
         <br>
-        <img src="images/butler.png"alt="コンシェルジュ">
+        <img src="images/butler.png" alt="コンシェルジュ">
       </div>
     </div>
 <!--cboxが終了-->

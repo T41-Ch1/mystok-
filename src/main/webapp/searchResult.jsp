@@ -11,15 +11,17 @@ int recipeNum = (int)(request.getAttribute("recipeNum")); //検索結果の件�
 int pageNum = (int)(request.getAttribute("pageNum")); //10件ごとに表示した場合何ページ目か 1からスタートする
 String searchMode = (String)(request.getAttribute("searchMode")); //検索モード 料理名検索ならryouri 食材名検索ならsyokuzaiが格納される
 String[] inputData = (String[])(request.getAttribute("inputData")); //検索窓に入力された文字列をスペースで分割したもの
-String input = inputData[0]; //inputDataに格納された文字列をスペースで連結したもの
+String input = "";
+if (inputData.length > 0) input = inputData[0]; //inputDataに格納された文字列をスペースで連結したもの
 for (int i = 1; i < inputData.length; i++){
 	input += "　" + inputData[i];
 }
 ArrayList<Integer> recipeID = (ArrayList)(request.getAttribute("recipeID")); //表示するレシピのID(最大10件)
 ArrayList<String> recipeTitle = (ArrayList)(request.getAttribute("recipeTitle")); //表示するレシピ名(最大10件)
 ArrayList<String> recipeIntro = (ArrayList)(request.getAttribute("recipeIntro")); //表示するレシピの紹介文(最大10件)
-ArrayList<ArrayList<String[]>> list =new ArrayList<>(); //表示するレシピの分量(最大10件)
+ArrayList<ArrayList<String[]>> list = new ArrayList<>(); //表示するレシピの分量(最大10件)
 list = (ArrayList<ArrayList<String[]>>)request.getAttribute("recipeBunryouList");
+ArrayList<Boolean> favoList = (ArrayList)(request.getAttribute("favoList"));
 %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +51,7 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
 %>
   <!--aside開始-->
       <aside>
-        <h3>特に消費したい食材</h3>
+        <h3>１番消費したい食材</h3>
         <form action="SearchResultServlet" method="get"><!--サイドバー側のラジオボタン-->
           <div class="sradio-font">
             <ul>
@@ -88,8 +90,7 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
   <!--main開始-->
       <main class="main">
        <article>
-         <h1>検索結果
-           <span> <%= recipeNum %> 件</span>
+         <h1>検索結果 <%= recipeNum %> 件
            <div class="radio-font"><!--ラジオボタンのdiv４-->
             <form action="SearchResultServlet" method="get"><!--メイン要素側のラジオボタン-->
              <ul class="radiolist"><!--ラジオボタンリストのul-->
@@ -102,18 +103,21 @@ if (searchMode.equals("syokuzai") && inputData.length > 1) {
                    <div class="check"></div><!--ラジオボタンチェックする円のdiv６-->
                  </li>
              </ul>
-
            </div>
           <div class="kennsaku">
            <!-- \u3041-\u3096は平仮名、\u3000は全角スペース、\u30fcは長音 これらの文字の組み合わせのみ許可する 正規表現で書いたのがpatternの所 -->
-           <input id="mado" type="text" name="input" value="<%=input%>" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50 placeholder=" 例）じゃがいも　かれー等　【ひらがな入力のみ】" title="ひらがなで入力して下さい" required>
-           <input id="mbutton" type="submit" value="検索" onclick="func1()">
-           <script>
-             let form = document.getElementById('mbutton');
-             form.addEventListener('submit', () => { form.disabled = true; }, false);
+            <input id="mado" type="text" name="input" size=50 pattern="[\u3041-\u3096|\u3000|\u30fc]*" maxlength=50
+             value="<%=input%>" title="ひらがなで入力して下さい" required>
+            <input id = "mbutton" type="submit" value="レシピ検索" onclick="func1()">
+            <script>
+             //二度押し防止機能
+             function func1() {
+              document.mkensaku.submit();
+              document.getElementById('mbutton').disabled = true;
+             }
             </script>
           </div>
-            </form>
+         </form>
         </h1>
 
     <!--main終了-->
@@ -127,29 +131,46 @@ if (recipeNum == 0) {
          <div class="recipebox">
            <div class="recipeimage">
             <!-- レシピのIDをゼロパディングしてファイル名を生成する -->
-            <img alt="<%= recipeTitle.get(i) %>" width="200" height="200" src="Picture/RyouriPIC/ryouri<%=String.format("%06d", recipeID.get(i))%>.jpg" class="recipetori">
+            <img alt="<%= recipeTitle.get(i) %>" width="200" height="200" src="images/RyouriPIC/ryouri<%=String.format("%06d", recipeID.get(i))%>.jpg" class="recipetori">
            </div>
            <div class="racipe-text">
             <h2 class="recipetitle">
-              <a href="xxxx.html"><img src="images/無色ハート.png"
+              <a class="recipetitlelink" href="RecipeServlet?recipeID=<%= recipeID.get(i) %>&input=<%= URLEncoder.encode(input, "UTF-8") %>&searchMode=<%= searchMode %>"><%= recipeTitle.get(i) %></a><br>
+              <%
+              String tabeta = "";
+              if (favoList.get(i)) tabeta = "aceat.png";
+              else tabeta = "bceat.png";
+              %>
+              <a href="xxxx.html"><img src="images/<%= tabeta %>"
+                 alt="今日食べたボタン" width="30" height="30" class="eat"></a>
+              <%
+              String heart = "";
+              if (favoList.get(i)) heart = "pink_heart.png";
+              else heart = "clear_heart.png";
+              %>
+              <a href="xxxx.html"><img src="images/<%= heart %>"
                  alt="お気に入りボタン" width="30" height="30" class="heart"></a>
-              <a class="recipititlelink" href="RecipeServlet?recipeID=<%= recipeID.get(i) %>&input=<%= URLEncoder.encode(input, "UTF-8") %>&searchMode=<%= searchMode %>"><%= recipeTitle.get(i) %></a></h2>
+            </h2>
            <div class="material">
 <%
 out.println(recipeIntro.get(i) + "<br>");
 out.println("材料：");
-for ( int j = 0; j < list.get(i).size(); j++) {
-	//分量の右端が.00のようになっていた場合削る
-	while (list.get(i).get(j)[1].length() > 0 && list.get(i).get(j)[1].substring(list.get(i).get(j)[1].length() - 1).equals("0")) {
-		list.get(i).get(j)[1] = list.get(i).get(j)[1].substring(0, list.get(i).get(j)[1].length() - 1);
+for (int j = 0; j < list.get(i).size(); j++) {
+	if (j == 0) {
+		//右端のゼロと小数点を削る処理
+		while (list.get(i).get(j)[1].length() > 0 && list.get(i).get(j)[1].substring(list.get(i).get(j)[1].length() - 1).equals("0")) {
+			list.get(i).get(j)[1] = list.get(i).get(j)[1].substring(0, list.get(i).get(j)[1].length() - 1);
+		}
+		if (list.get(i).get(j)[1].substring(list.get(i).get(j)[1].length() - 1).equals(".")) {
+			list.get(i).get(j)[1] = list.get(i).get(j)[1].substring(0, list.get(i).get(j)[1].length() - 1);
+		}
+		out.println(list.get(i).get(j)[0] + " " + list.get(i).get(j)[1] + " " + list.get(i).get(j)[2] + "<br>");
+	} else if (j >= 15) {
+		out.print("…等");
+		break;
 	}
-	if (list.get(i).get(j)[1].substring(list.get(i).get(j)[1].length() - 1).equals(".")) {
-		list.get(i).get(j)[1] = list.get(i).get(j)[1].substring(0, list.get(i).get(j)[1].length() - 1);
-	}
-	if (j > 0) out.println("、");
-	out.println(list.get(i).get(j)[0]);
-	//下は分量と単位も表示する
-	//out.println(list.get(i).get(j)[0] + " " + list.get(i).get(j)[1] + " " + list.get(i).get(j)[2] + "<br>");
+	else if (j == 1) out.print(list.get(i).get(j)[0]);
+	else out.print("、" + list.get(i).get(j)[0]);
 }
 %>
            </div>
@@ -183,7 +204,8 @@ if (recipeNum > 10) {
       <!-- ｢4 5 6 7 8 9 10 11 12｣の表示 pageNumの前後4件まで -->
       <%
       for (int i = Math.max(1, pageNum - 4); i <= Math.min(pageNum + 4, pageTotal); i++) {
-       out.print("<li><a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=" + i + "\">" + i + "</a></li>");
+    	  if (i == pageNum) out.println("<li>" + i + "</li>");
+    	  else out.println("<li><a href=\"SearchResultServlet?searchMode=" + searchMode +"&input=" + inputDataStr + "&pageNum=" + i + "\">" + i + "</a></li>");
       }
       %>
       <!-- ｢次へ >｣の表示 -->

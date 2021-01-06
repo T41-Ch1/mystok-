@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pac1.func.Util;
+
 /**
  * Servlet implementation class SearchResultServlet
  */
@@ -27,6 +29,7 @@ public class SearchResultServlet extends HttpServlet {
 			HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String userName = request.getRemoteUser(); //ユーザ名 ログイン中でなければnullが格納される
 		String[] inputData; //検索窓に入力された文字列を全角スペースで分割して順に格納する配列
 		String searchMode; //検索モード 料理名検索ならryouri 食材名検索ならsyokuzaiが格納される
 		final String JSP_PATH0 = "top.jsp"; //メインページのJSP
@@ -48,13 +51,15 @@ public class SearchResultServlet extends HttpServlet {
 		int recipeNum = 0; //表示するデータの件数
 
 		//inputDataとsearchModeの準備
-		String input = ""; //入力されたデータを格納
-		if (!Objects.equals(request.getParameter("input"), null)) {
-			input = request.getParameter("input"); //送信されたinputを格納
+		String input; //入力されたデータを格納
+		if (Objects.equals(request.getParameter("input"), null)) {
+			input = ""; //pageNumのパラメータがnullなら1ページ目を表示
+		} else {
+			input = request.getParameter("input"); //そうでないなら送信されたパラメータpageNumを格納
 		}
 		while (input.contains("　　")) input = input.replace("　　", "　"); //スペースが連続していたら1つに圧縮
-		if (input.charAt(0) == '　') input = input.substring(1); //スペースから始まっていたら削る
 		if (input.length() > 0){
+			if (input.charAt(0) == '　') input = input.substring(1); //スペースから始まっていたら削る
 			inputData = input.split("　"); //inputが1文字以上なら半角スペースで分割
 		} else {
 			inputData = new String[0]; //inputが0文字ならinputDataは要素数0 splitで生成すると要素数が1になる
@@ -100,6 +105,7 @@ public class SearchResultServlet extends HttpServlet {
 			sql += ")) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = " + "?";
 			sql += ") order by Bunryou desc limit " + DATA_PER_PAGE + " offset " + DATA_PER_PAGE * (pageNum - 1);
 		}
+		System.out.println(sql);
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -134,7 +140,6 @@ public class SearchResultServlet extends HttpServlet {
 				}
 				prestmt.setString(dataNum + 1,inputData[0]);
 			}
-			System.out.println("表示レシピ検索SQL:" + prestmt.toString());
 
 			try (ResultSet rs = prestmt.executeQuery()) {
 				while (rs.next()) {
@@ -175,7 +180,7 @@ public class SearchResultServlet extends HttpServlet {
 				}
 				sql += "')) group by RyouriID having count(RyouriID) = " + dataNum + ") and SyokuzaiID = (select SyokuzaiID from SyokuzaiTB where SyokuzaiKana = '" + inputData[0] + "') order by Bunryou desc);";
 			}
-			System.out.println("レシピ件数検索SQL:" + sql);
+			System.out.println(sql);
 
 			try (
 					Connection conn = DriverManager.getConnection(
@@ -228,7 +233,11 @@ public class SearchResultServlet extends HttpServlet {
 			for (int i = 1; i < recipeID.size(); i++) {
 				sql += "', '" + recipeID.get(i);
 			}
-			sql += "'), BunryouTB.SyokuzaiID;";
+			sql += "'), field(SyokuzaiTB.SyokuzaiKana, '" + inputData[inputData.length - 1];
+			for (int i = inputData.length - 2; i >= 0; i--) {
+				sql += "', '" + inputData[i];
+			}
+			sql += "') desc";
 			System.out.println(sql);
 
 			try (
@@ -268,7 +277,11 @@ public class SearchResultServlet extends HttpServlet {
 			}
 		}
 
+		//Favo確認SQLを表示レシピに対して実行
+		ArrayList<Boolean> favoList = Util.favoInfo(recipeID, userName);
+
 		//requestに属性を追加してJSPにフォワードする
+		request.setAttribute("favoList", favoList);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("searchMode", searchMode);
 		request.setAttribute("inputData", inputData);
