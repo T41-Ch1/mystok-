@@ -152,6 +152,15 @@ public class RecipeRegisterServlet extends HttpServlet {
 		rd_result.forward(request, response);
 	}
 
+        //Image変換処理が必要かどうか判定する
+        imageFolderPath = "/usr/local/tomcat/webapps/mystok/WEB-INF/uploaded"
+        imagePath = imageFolderPath + "
+        ImageConverter ic = new ImageConverter();
+        ic.imageConverter("
+
+        //ImageをCloudStorageへUploadする
+
+
 	//サーバの指定のファイルパスへアップロードしたファイルを保存
 	private String getFileName(Part part) {
         String name = null;
