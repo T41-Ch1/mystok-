@@ -153,12 +153,12 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 
                 //Image変換処理が必要かどうか判定=>変換処理
-                imageFolderPath = "/usr/local/tomcat/webapps/mystok/WEB-INF/uploaded";
-                imagePath = imageFolderPath + "/" +name;
+                String imageFolderPath = "/usr/local/tomcat/webapps/mystok/WEB-INF/uploaded";
+                String imagePath = imageFolderPath + "/" +name;
 
                 if(!(name.endWith(".jpg"))) {
         
-                        imageOutputPath = imageFolderPath + "/uploadedImageFile";
+                        String imageOutputPath = imageFolderPath + "/uploadedImageFile";
                         ImageConverter ic = new ImageConverter();
                         ic.imageConverter(imagePath,imageOutputPath);
                         imagePath = imageOutputPath;
