@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-import pac1.AuthHttpServletRequest;
+import mystok.AuthHttpServletRequest;
 
 /**
  * Servlet Filter implementation class AuthFilter
