@@ -43,6 +43,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 		String sql1 = "";
 		String sql2 = "";
 		String sql3 = "";
+                String name = "";
 		final String SERVLET_PATH = "RecipeRegisterPageServlet";
 
 		//認証チェック
@@ -50,7 +51,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 		Part part = request.getPart("pic");
 		if (part.getSize() > 0) {
-			String name = this.getFileName(part);
+			name = this.getFileName(part);
 	        //C:\Users\197029\Documents\pleiades\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\mystok\WEB-INFにuploadedフォルダを手動で作ること
 	        part.write(getServletContext().getRealPath("/WEB-INF/uploaded") + "/" + name);
 		}
@@ -156,7 +157,7 @@ public class RecipeRegisterServlet extends HttpServlet {
                 String imageFolderPath = "/usr/local/tomcat/webapps/mystok/WEB-INF/uploaded";
                 String imagePath = imageFolderPath + "/" +name;
 
-                if(!(name.endWith(".jpg"))) {
+                if(!(name.endsWith(".jpg"))) {
         
                         String imageOutputPath = imageFolderPath + "/uploadedImageFile";
                         ImageConverter ic = new ImageConverter();
