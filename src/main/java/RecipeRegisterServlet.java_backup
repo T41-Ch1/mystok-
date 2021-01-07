@@ -83,7 +83,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 		//料理登録SQL(料理名)と料理登録SQL(料理ID検索)
 		sql1 = "insert into RyouriTB (RyouriKana, Ryourimei, Tukurikata, Syoukai, UserName) values (?, ?, ?, ?, ?)";
-		sql2 = "select ryouriID from RyouriTB where Ryourimei = ? order by ryouriID desc limit 1";
+		sql2 = "select RyouriID from RyouriTB where Ryourimei = ? order by RyouriID desc limit 1";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -115,7 +115,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 			System.out.println("料理登録SQL(料理ID検索):" + prestmt.toString());
 			try (ResultSet rs = prestmt.executeQuery()) {
 				while (rs.next()) {
-					ryouriID = rs.getInt("ryouriID"); //条件を満たすryouriIDを格納
+					ryouriID = rs.getInt("RyouriID"); //条件を満たすRyouriIDを格納
 				}
 			}
 
@@ -167,7 +167,7 @@ public class RecipeRegisterServlet extends HttpServlet {
                 //ImageをCloudStorageへUploadする
                 //第一引数は"アップロード後の名前",第二引数は"アップロード対象ファイルへの絶対パス"
                 UploadObject uo = new UploadObject();
-                uo.uploadObject(ryouriID + ".jpg",imagePath)
+                uo.uploadObject(RyouriID + ".jpg",imagePath)
         }
 
 	//サーバの指定のファイルパスへアップロードしたファイルを保存
