@@ -167,7 +167,7 @@ public class RecipeRegisterServlet extends HttpServlet {
                 //ImageをCloudStorageへUploadする
                 //第一引数は"アップロード後の名前",第二引数は"アップロード対象ファイルへの絶対パス"
                 UploadObject uo = new UploadObject();
-                uo.uploadObject(ryouriID + ".jpg",imagePath)
+                uo.uploadObject(ryouriID + ".jpg",imagePath);
         }
 
 	//サーバの指定のファイルパスへアップロードしたファイルを保存
