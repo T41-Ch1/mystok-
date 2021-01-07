@@ -1,4 +1,4 @@
-package pac1;
+package mystok;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

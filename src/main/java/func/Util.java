@@ -1,4 +1,4 @@
-package pac1.func;
+package mystok.func;
 
 import java.io.IOException;
 import java.sql.Connection;
