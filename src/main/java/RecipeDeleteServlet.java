@@ -38,7 +38,7 @@ public class RecipeDeleteServlet extends HttpServlet {
 
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
 			prestmt.setInt(1,ryouriID);
 			prestmt.setString(2,userName);

@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 		//ソルト取得SQLの実行
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql1)) {
 			prestmt.setString(1, userName);
 			System.out.println("ソルト取得SQL:" + prestmt.toString());
@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
 		//ログイン判定SQLの実行
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql2)) {
 			prestmt.setString(1, userName);
 			System.out.println("ログイン判定SQL:" + prestmt.toString());

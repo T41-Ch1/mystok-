@@ -94,7 +94,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql1)) {
 			prestmt.setString(1, ryourikana);
 			prestmt.setString(2, ryourimei);
@@ -110,7 +110,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql2)) {
 			prestmt.setString(1, ryourimei);
 			System.out.println("料理登録SQL(料理ID検索):" + prestmt.toString());
@@ -134,7 +134,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql3)) {
 			for (int i = 0; i < recipeBunryouList.size(); i++) {
 				prestmt.setInt(1 + 3 * i, ryouriID);

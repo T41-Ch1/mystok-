@@ -42,7 +42,7 @@ public class RecipeRegisterPageServlet extends HttpServlet {
 		//食材名取得SQL
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("select SyokuzaiKana, Tanni from SyokuzaiTB")) {
 			while (rs.next()) {

@@ -116,7 +116,7 @@ public class SearchResultServlet extends HttpServlet {
 		//表示レシピ検索SQLの実行
 		try (
 				Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+					"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 				PreparedStatement prestmt = conn.prepareStatement(sql)) {
 			if (searchMode.equals("ryouri")) {
 				for (int i = 0 ; i < inputData.length;i++) {
@@ -184,7 +184,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			try (
 					Connection conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(sql)) {
 				while (rs.next()) {
@@ -210,7 +210,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			try (
 					Connection conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(sql)) {
 				while (rs.next()) {
@@ -242,7 +242,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			try (
 					Connection conn = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/j2a1b?serverTimezone=JST","root","password");
+						"jdbc:mysql://127.0.0.1:3306/mystok?serverTimezone=JST","root","password");
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(sql)) {
 				//レシピごとに必要な分量のデータが入ったArrayList<String[]> tempListを作成する
