@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Objects" %>
-<%@ page import="pac1.func.Util" %>
+<%@ page import="mystok.func.Util" %>
 <!DOCTYPE html>
 <html>
 <head>
