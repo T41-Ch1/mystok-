@@ -3,4 +3,5 @@ COPY ./target/mystok.war /usr/local/tomcat/webapps/
 COPY ./conf/server.xml /usr/local/tomcat/conf/
 COPY ./ROOT/index.jsp /usr/local/tomcat/webapps/ROOT/
 COPY ./lib/*.jar /usr/local/tomcat/lib/
+RUN mkdir /usr/local/tomcat/webapps/mystok/WEB-INF/uploaded
 EXPOSE 80
