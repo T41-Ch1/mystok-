@@ -159,7 +159,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
                 if(!(name.endsWith(".jpg"))) {
         
-                        String imageOutputPath = imageFolderPath + "/uploadedImageFile";
+                        String imageOutputPath = imageFolderPath + "/" + ryouriID + ".jpg";
                         ImageConverter ic = new ImageConverter();
                         ic.imageConverter(imagePath,imageOutputPath);
                         imagePath = imageOutputPath;
