@@ -1,6 +1,7 @@
 package mystok;
 
 import java.io.IOException;
+import java.io.FIle;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -172,6 +173,11 @@ public class RecipeRegisterServlet extends HttpServlet {
                 //第一引数は"アップロード後の名前",第二引数は"アップロード対象ファイルへの絶対パス"
                 UploadObject uo = new UploadObject();
                 uo.uploadObject(ryouriID + "-" + currentTime + ".jpg",imagePath);
+
+                //アップロード後の画像ファイルをコンテナから削除
+                File UploadedImage = new File(imagePath);
+                UploadedImage.delete();
+                
         }
 
 	//サーバの指定のファイルパスへアップロードしたファイルを保存
