@@ -153,6 +153,9 @@ public class RecipeRegisterServlet extends HttpServlet {
 		rd_result.forward(request, response);
 
 
+                //TimeStamp用に、CurrentTimeを取得(表示形式はmilli second)
+                String currentTime = System.currentTImeMillis();
+
                 //Image変換処理が必要かどうか判定=>変換処理
                 String imageFolderPath = "/usr/local/tomcat/webapps/mystok/WEB-INF/uploaded";
                 String imagePath = imageFolderPath + "/" +name;
@@ -168,7 +171,7 @@ public class RecipeRegisterServlet extends HttpServlet {
                 //ImageをCloudStorageへUploadする
                 //第一引数は"アップロード後の名前",第二引数は"アップロード対象ファイルへの絶対パス"
                 UploadObject uo = new UploadObject();
-                uo.uploadObject(ryouriID + ".jpg",imagePath);
+                uo.uploadObject(ryouriID + "-" + currentTime + ".jpg",imagePath);
         }
 
 	//サーバの指定のファイルパスへアップロードしたファイルを保存
