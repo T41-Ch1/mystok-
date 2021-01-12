@@ -1,7 +1,7 @@
 package mystok;
 
 import java.io.IOException;
-import java.io.FIle;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.lang.System;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -155,7 +156,7 @@ public class RecipeRegisterServlet extends HttpServlet {
 
 
                 //TimeStamp用に、CurrentTimeを取得(表示形式はmilli second)
-                String currentTime = System.currentTImeMillis();
+                String currentTime = String.valueOf(System.currentTimeMillis());
 
                 //Image変換処理が必要かどうか判定=>変換処理
                 String imageFolderPath = "/usr/local/tomcat/webapps/mystok/WEB-INF/uploaded";
