@@ -167,6 +167,11 @@ public class RecipeRegisterServlet extends HttpServlet {
                         String imageOutputPath = imageFolderPath + "/" + ryouriID + ".jpg";
                         ImageConverter ic = new ImageConverter();
                         ic.imageConverter(imagePath,imageOutputPath);
+
+                        //変換前の画像を削除
+                        File UploadedImage = new File(imagePath);
+                        UploadedImage.delete();
+                        
                         imagePath = imageOutputPath;
                 }
 
@@ -175,9 +180,9 @@ public class RecipeRegisterServlet extends HttpServlet {
                 UploadObject uo = new UploadObject();
                 uo.uploadObject(ryouriID + "-" + currentTime + ".jpg",imagePath);
 
-                //アップロード後の画像ファイルをコンテナから削除
-                File UploadedImage = new File(imagePath);
-                UploadedImage.delete();
+                //jpg形式の画像ファイルをアップロード後、コンテナから削除
+                File JpgImage = new File(imagePath);
+                JpgImage.delete();
                 
         }
 
