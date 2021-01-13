@@ -1,4 +1,4 @@
-package pac1
+package pac1;
 
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -7,6 +7,8 @@ import com.google.cloud.storage.StorageException;
 import com.google.cloud.storage.StorageOptions;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
+//pom.xmlの更新が必要かも
 
 public class GenerateV4GetObjectSignedUrl {
   /**
@@ -19,11 +21,11 @@ public class GenerateV4GetObjectSignedUrl {
    * credentials are authorized to sign a URL. See the documentation for Storage.signUrl for more
    * details.
    */
-  public static void generateV4GetObjectSignedUrl(
-      String projectId, String bucketName, String objectName) throws StorageException {
-    // String projectId = "my-project-id";
-    // String bucketName = "my-bucket";
+  public static String generateV4GetObjectSignedUrl(String objectName) throws StorageException {
+    String projectId = "my-kubernetes-test-20200822";
+    String bucketName = "mystok-bucket";
     // String objectName = "my-object";
+    String image_url = "";
 
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
 
@@ -35,7 +37,10 @@ public class GenerateV4GetObjectSignedUrl {
 
     System.out.println("Generated GET signed URL:");
     System.out.println(url);
-    System.out.println("You can use this URL with any user agent, for example:");
-    System.out.println("curl '" + url + "'");
+
+    image_url = url.toString();
+    System.out.println("Convert url to string");
+
+    return image_url;
   }
 }
